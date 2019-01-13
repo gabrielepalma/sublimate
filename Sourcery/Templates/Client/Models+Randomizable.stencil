@@ -1,0 +1,18 @@
+// sourcery:file:../../SublimateClient/SublimateClient/Sources/Generated/Models+Randomizable.swift
+// swiftlint:disable vertical_whitespace
+
+import UIKit
+import RealmSwift
+import SublimateUI
+
+{% for type in types.implementing.FrozenModel|class %}
+extension {{ type.name }}Object: Randomizable {
+    func randomize() {
+        {% for variable in type.storedVariables %}
+        {{ variable.name }} = {{ variable.typeName }}.random()
+        {% endfor %}
+    }
+}
+
+{% endfor %}
+// sourcery:end

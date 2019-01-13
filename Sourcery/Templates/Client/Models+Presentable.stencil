@@ -1,0 +1,73 @@
+// sourcery:file:../../SublimateClient/SublimateClient/Sources/Generated/Models+Presentable.swift
+// swiftlint:disable vertical_whitespace
+
+import UIKit
+import RxSwift
+import SublimateUI
+
+{% for type in types.implementing.FrozenModel|class %}
+extension {{ type.name }}Object : OverviewPresentable {
+    var presentationId: String? {
+        return remoteId
+    }
+
+    var presentationTitle: String? {
+        {% for variable in type.storedVariables %}
+        {% if forloop.first %}
+        return {{ variable.name }}
+        {% endif %}
+        {% endfor %}
+    }
+
+    var presentationThumbnail: Observable<UIImage?> {
+        return Observable.just(nil)
+    }
+}
+
+extension {{ type.name }}Object : DetailPresentable {
+    var presentationKeyPaths : [(String, PartialKeyPath<{{ type.name }}Object>)] {
+        return [
+            {% for variable in type.storedVariables %}
+            ("{{ variable.name }}", \{{ type.name }}Object.{{ variable.name }}){% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        ]
+    }
+
+    var metadataKeyPaths : [(String, PartialKeyPath<{{ type.name }}Object>)] {
+        return [
+            ("localId", \{{ type.name }}Object.localId),
+            ("remoteId", \{{ type.name }}Object.remoteId),
+            ("clientCreated", \{{ type.name }}Object.clientCreatedDate),
+            ("clientLastUpdated", \{{ type.name }}Object.clientLastUpdatedDate),
+            ("syncOperation", \{{ type.name }}Object.syncOperation)
+        ]
+    }
+}
+
+{% endfor %}
+
+func sublimateTableSources() -> [TableSource] {
+    var sources = [TableSource]()
+    var temp : TableSource
+
+    {% for type in types.implementing.FrozenModel|class %}
+    temp = TableSource()
+    {% if type.implements.OwnedFrozenModel %}
+    temp.availability = .onlyAuthenthicated
+    {% else %}
+    temp.availability = .openAccess
+    {% endif %}
+    temp.description = "{{ type.name }}"
+    temp.viewController = {
+        let vc = ObjectsTableViewController<{{ type.name }}Object>()
+        vc.syncer = DI.{{ type.name|lowerFirstLetter }}Syncer
+        vc.realmConfiguration = DI.realmConfiguration
+        return vc
+    }
+    sources.append(temp)
+    {% endfor %}
+
+    return sources
+}
+
+// sourcery:end

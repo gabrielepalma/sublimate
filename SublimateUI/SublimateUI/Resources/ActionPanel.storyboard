@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Action Panel View Controller-->
+        <scene sceneID="o2b-Qq-6qA">
+            <objects>
+                <viewController storyboardIdentifier="ActionPanelViewController" id="lVo-GB-Ys5" customClass="ActionPanelViewController" customModule="SublimateClient" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DM5-fV-I75">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xLL-bU-Yck">
+                                <rect key="frame" x="10" y="10" width="172.5" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="qZx-fX-fUP"/>
+                                </constraints>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteButtonTapped" destination="lVo-GB-Ys5" eventType="touchUpInside" id="vlB-ix-j64"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8j-bc-sOI">
+                                <rect key="frame" x="10" y="100" width="355" height="40"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="cancelButtonTapped" destination="lVo-GB-Ys5" eventType="touchUpInside" id="i7e-mm-dIU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCg-qw-Hv9">
+                                <rect key="frame" x="192.5" y="10" width="172.5" height="80"/>
+                                <state key="normal" title="Randomize"/>
+                                <connections>
+                                    <action selector="randomButtonTapped" destination="lVo-GB-Ys5" eventType="touchUpInside" id="EBK-NP-Jjf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4j7-G6-cCO" firstAttribute="trailing" secondItem="uCg-qw-Hv9" secondAttribute="trailing" constant="10" id="8lN-yE-vBo"/>
+                            <constraint firstItem="E8j-bc-sOI" firstAttribute="trailing" secondItem="uCg-qw-Hv9" secondAttribute="trailing" id="DXR-rV-gLb"/>
+                            <constraint firstItem="uCg-qw-Hv9" firstAttribute="height" secondItem="xLL-bU-Yck" secondAttribute="height" id="KNf-4B-Vzu"/>
+                            <constraint firstItem="4j7-G6-cCO" firstAttribute="bottom" secondItem="E8j-bc-sOI" secondAttribute="bottom" constant="10" id="Msm-h5-eC3"/>
+                            <constraint firstItem="uCg-qw-Hv9" firstAttribute="width" secondItem="xLL-bU-Yck" secondAttribute="width" id="XCc-g7-CsX"/>
+                            <constraint firstItem="E8j-bc-sOI" firstAttribute="leading" secondItem="xLL-bU-Yck" secondAttribute="leading" id="ezc-hg-uh0"/>
+                            <constraint firstItem="E8j-bc-sOI" firstAttribute="top" secondItem="xLL-bU-Yck" secondAttribute="bottom" constant="10" id="f8R-7o-FX9"/>
+                            <constraint firstItem="xLL-bU-Yck" firstAttribute="top" secondItem="4j7-G6-cCO" secondAttribute="top" constant="10" id="iBM-kz-vn0"/>
+                            <constraint firstItem="uCg-qw-Hv9" firstAttribute="centerY" secondItem="xLL-bU-Yck" secondAttribute="centerY" id="oMi-px-83D"/>
+                            <constraint firstItem="E8j-bc-sOI" firstAttribute="height" secondItem="xLL-bU-Yck" secondAttribute="height" multiplier="1:2" id="vrY-kI-yJM"/>
+                            <constraint firstItem="xLL-bU-Yck" firstAttribute="leading" secondItem="4j7-G6-cCO" secondAttribute="leading" constant="10" id="zYd-pQ-Oei"/>
+                            <constraint firstItem="uCg-qw-Hv9" firstAttribute="leading" secondItem="xLL-bU-Yck" secondAttribute="trailing" constant="10" id="zgs-TE-GVi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4j7-G6-cCO"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="150"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="E8j-bc-sOI" id="2dS-yf-gBV"/>
+                        <outlet property="deleteButton" destination="xLL-bU-Yck" id="oW7-XG-JyM"/>
+                        <outlet property="randomButton" destination="uCg-qw-Hv9" id="GHy-vS-CDi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kf9-mu-fc7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-662" y="216"/>
+        </scene>
+    </scenes>
+</document>

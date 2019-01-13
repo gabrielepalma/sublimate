@@ -1,0 +1,33 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'SublimateClient' do
+  use_frameworks!
+
+  # Pods for SublimateClient
+  pod 'SublimateSync', :path => '..'
+  pod 'SublimateUI', :path => '..'
+
+  pod 'RealmSwift'
+  pod 'RxRealmDataSources'
+  pod 'RxSwift'
+  pod 'PromiseKit'
+  pod 'Swinject'
+  pod 'RxRealm'
+  pod 'RxCocoa'
+  pod 'RxReachability'
+  pod 'KeychainAccess'
+  pod 'NVActivityIndicatorView'
+  pod 'SwiftMessages'
+
+  target 'SublimateClientTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'SublimateClientUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

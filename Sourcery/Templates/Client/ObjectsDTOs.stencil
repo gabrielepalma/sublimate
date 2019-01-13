@@ -1,0 +1,17 @@
+// sourcery:file:../../SublimateClient/SublimateClient/Sources/Generated/ObjectDTOs.swift
+// swiftlint:disable vertical_whitespace
+
+import UIKit
+import SublimateSync
+
+{% for type in types.implementing.FrozenModel|class %}
+// MARK: - {{ type.name }} network dto
+final class {{ type.name }}DTO: Codable {
+    var id : String?
+    {% for variable in type.storedVariables %}
+    var {{ variable.name }}: {{ variable.typeName }} = {{ variable.typeName }}.sublimateDefault()
+    {% endfor %}
+}
+{% endfor %}
+// sourcery:end
+

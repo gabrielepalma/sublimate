@@ -1,0 +1,43 @@
+// sourcery:file:../../SublimateClient/SublimateClient/Sources/Generated/SyncableDTOs.swift
+// swiftlint:disable vertical_whitespace
+
+import SublimateSync
+
+{% for type in types.implementing.FrozenModel|class %}
+// MARK: - {{ type.name }} network dto
+final class {{ type.name }}SyncableDTO: SyncableDTO<{{ type.name }}Object>, Codable {
+    private var dto : {{ type.name }}DTO
+
+    override init(from object: {{ type.name }}Object) {
+        dto = {{ type.name }}DTO()
+        {% for variable in type.storedVariables %}
+        self.dto.{{ variable.name }} = object.{{ variable.name }}
+        {% endfor %}
+        self.dto.id = object.remoteId
+        super.init(from: object)
+    }
+    override func syncIdentifier() -> String? {
+        return dto.id
+    }
+
+    override func update(object: {{ type.name }}Object) {
+        assert(object.remoteId == nil || self.dto.id == object.remoteId, "Updating an Object from a non-matching DTO")
+        object.remoteId = self.dto.id
+        {% for variable in type.storedVariables %}
+        object.{{ variable.name }} = self.dto.{{ variable.name }}
+        {% endfor %}
+    }
+
+    public init(from decoder: Decoder) throws {
+        self.dto = try {{ type.name }}DTO(from : decoder)
+        super.init()
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        try dto.encode(to: encoder)
+    }
+}
+
+{% endfor %}
+// sourcery:end
+

@@ -1,0 +1,53 @@
+// sourcery:file:../../SublimateClient/SublimateClient/Sources/Generated/ServiceRegistration.swift
+// swiftlint:disable vertical_whitespace
+
+import UIKit
+import RealmSwift
+import Swinject
+import PromiseKit
+import Reachability
+import SublimateSync
+
+func registerObjectSyncers(container : Container) {
+
+{% for type in types.implementing.FrozenModel|class %}
+    container.register(NetworkClient<{{ type.name }}Object>.self, factory: { (r) -> NetworkClient<{{ type.name }}Object> in
+        return {{ type.name }}NetworkClient(networkManager: r.resolve(NetworkManagerProtocol.self)!)
+    }).inObjectScope(.weak)
+
+    container.register(Syncer<{{ type.name }}Object>.self) { (r) -> Syncer<{{ type.name }}Object> in
+        return Syncer<{{ type.name }}Object>(networkClient: r.resolve(NetworkClient<{{ type.name }}Object>.self)!, realmConfiguration: r.resolve(Realm.Configuration.self)!, reachability: r.resolve(Reachability.self)!)
+    }.inObjectScope(.weak)
+
+{% endfor %}
+}
+
+func sublimateObjectTypes() -> [Object.Type]? {
+    return [
+        {% for type in types.implementing.FrozenModel|class %}
+        {{ type.name }}Object.self{% if not forloop.last %}, {% endif %}{% endfor %}
+    ]
+}
+
+func sublimatePrivateObjectTypes() -> [Object.Type]? {
+    return [
+        {% for type in types.implementing.OwnedFrozenModel|class %}
+        {{ type.name }}Object.self{% if not forloop.last %}, {% endif %}{% endfor %}
+    ]
+}
+
+extension DI {
+{% for type in types.implementing.FrozenModel|class %}
+    static var {{ type.name|lowerFirstLetter }}NetworkClient : NetworkClient<{{ type.name }}Object>? {
+        get {
+            return box.resolve(NetworkClient<{{ type.name }}Object>.self)
+        }
+    }
+    static var {{ type.name|lowerFirstLetter }}Syncer : Syncer<{{ type.name }}Object>? {
+        get {
+            return box.resolve(Syncer<{{ type.name }}Object>.self)
+        }
+    }
+{% endfor %}
+}
+// sourcery:end

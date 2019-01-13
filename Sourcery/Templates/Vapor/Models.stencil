@@ -1,0 +1,36 @@
+// sourcery:file:../../SublimateVapor/Sources/App/Generated/Models.swift
+// swiftlint:disable vertical_whitespace
+
+import FluentSQLite
+import Vapor
+
+public func configureSublimateMigration(migrations : inout MigrationConfig) {
+{% for type in types.implementing.FrozenModel|class %}
+    migrations.add(model: {{ type.name }}.self, database: .sqlite)
+{% endfor %}
+}
+
+{% for type in types.implementing.FrozenModel|class %}
+// MARK: - {{ type.name }} definition
+final class {{ type.name }} : SQLiteUUIDModel {
+    var id: UUID?
+    {% if type.implements.OwnedFrozenModel %}
+    var owner: String?
+    {% endif %}
+    {% for variable in type.storedVariables %}var {{ variable.name }}: {{ variable.typeName }}
+    {% endfor %}
+
+    init(id: UUID? = nil {% if type.implements.OwnedFrozenModel %}, owner : String? = nil {% endif %} {% for variable in type.storedVariables %}, {{ variable.name }} : {{ variable.typeName }} {% endfor %}) {
+        self.id = id
+        self.owner = owner
+        {% for variable in type.storedVariables %}self.{{ variable.name }} = {{ variable.name }}
+        {% endfor %}
+    }
+}
+
+extension {{ type.name }}: Migration { }
+extension {{ type.name }}: Content   { }
+extension {{ type.name }}: Parameter { }
+
+{% endfor %}
+// sourcery:end

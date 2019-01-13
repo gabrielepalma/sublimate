@@ -1,0 +1,76 @@
+// sourcery:file:../../SublimateVapor/Sources/App/Generated/Controllers.swift
+// swiftlint:disable vertical_whitespace
+
+import Foundation
+import Vapor
+import Authentication
+
+public func configureSublimateRoutes(plain : Router, resourceGroup: Router) {
+
+    {% for type in types.implementing.FrozenModel|class %}
+    {% if type.implements.OwnedFrozenModel %}resourceGroup{% else %}plain{% endif %}
+    let {{ type.name|lowerFirstLetter }}Controller = {{ type.name }}Controller()
+    {% if type.implements.OwnedFrozenModel %}resourceGroup{% else %}plain{% endif %}.get("{{ type.name|lowerFirstLetter }}", use: {{ type.name|lowerFirstLetter }}Controller.list)
+    {% if type.implements.OwnedFrozenModel %}resourceGroup{% else %}plain{% endif %}.post("{{ type.name|lowerFirstLetter }}", use: {{ type.name|lowerFirstLetter }}Controller.create)
+    {% if type.implements.OwnedFrozenModel %}resourceGroup{% else %}plain{% endif %}.delete("{{ type.name|lowerFirstLetter }}", {{ type.name }}.parameter, use: {{ type.name|lowerFirstLetter }}Controller.delete)
+
+    {% endfor %}
+}
+
+{% for type in types.implementing.FrozenModel|class %}
+class {{ type.name }}Controller {
+
+    /// Returns the list
+    func list(_ req: Request) throws -> Future<[{{ type.name }}]> {
+        {% if type.implements.OwnedFrozenModel %}
+        let user = try req.requireAuthenticated(PublicUser.self)
+        {% endif %}
+
+        return {{ type.name }}.query(on: req){% if type.implements.OwnedFrozenModel %}.filter(\{{ type.name }}.owner == user.userId){% endif %}.all()
+    }
+
+    /// Creation API
+    func create(_ req: Request) throws -> Future<{{ type.name }}> {
+        {% if type.implements.OwnedFrozenModel %}
+        let user = try req.requireAuthenticated(PublicUser.self)
+        {% endif %}
+        return try req.content.decode({{ type.name }}.self).flatMap { {{ type.name|lowerFirstLetter }} in
+            {% if type.implements.OwnedFrozenModel %}
+            {{ type.name|lowerFirstLetter }}.owner = user.userId
+            {% endif %}
+            return {{ type.name|lowerFirstLetter }}.save(on: req)
+        }
+    }
+
+    /// Deletion API
+    func delete(_ req: Request) throws -> Future<HTTPStatus> {
+        {% if type.implements.OwnedFrozenModel %}
+        // GP TODO: Rewrite this to be more functional
+        let user = try req.requireAuthenticated(PublicUser.self)
+
+        let promise = req.eventLoop.newPromise(of: HTTPStatus.self)
+        DispatchQueue.global().async {
+            guard let param = try? req.parameters.next({{ type.name }}.self).wait() else {
+                promise.fail(error:Abort(HTTPResponseStatus.internalServerError))
+                return
+            }
+            guard let objId = param.id?.uuidString else {
+                promise.fail(error:Abort(HTTPResponseStatus.internalServerError))
+                return
+            }
+            let uuid = UUID(objId)
+            if let fetch = try? {{ type.name }}.query(on: req).filter(\{{ type.name }}.id == uuid).first().wait(), let object = fetch, object.owner == user.userId  {
+                try? object.delete(on: req).wait()
+            }
+            promise.succeed(result: .ok)
+        }
+        return promise.futureResult
+        {% else %}
+        return try req.parameters.next({{ type.name }}.self).flatMap { {{ type.name|lowerFirstLetter }} in
+            return {{ type.name|lowerFirstLetter }}.delete(on: req)
+        }.transform(to: .ok)
+        {% endif %}
+    }
+}
+{% endfor %}
+// sourcery:end

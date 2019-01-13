@@ -1,0 +1,70 @@
+// sourcery:file:../../SublimateClient/SublimateClient/Sources/Generated/ObjectModels.swift
+// swiftlint:disable vertical_whitespace
+
+import UIKit
+import RealmSwift
+import SublimateSync
+
+{% for type in types.implementing.FrozenModel|class %}
+// MARK: - {{ type.name }} Realm object
+final class {{ type.name }}Object: Object, Syncable {
+    override public class func ignoredProperties() -> [String] {
+        return ["syncIdentifier", "syncOperation"]
+    }
+
+    override public static func primaryKey() -> String? {
+        return "localId"
+    }
+
+    override static func indexedProperties() -> [String] {
+        return ["remoteId"]
+    }
+
+    var syncIdentifier: String? {
+        return remoteId
+    }
+
+    var syncOperation: SyncOperation {
+        get {
+            return SyncOperation(rawValue: realmSyncOperation) ?? .none
+        }
+        set {
+            realmSyncOperation = newValue.rawValue
+        }
+    }
+
+    static func pendingObjectsPredicate() -> NSPredicate {
+        return NSPredicate(format: "realmSyncOperation in %@", [SyncOperation.create.rawValue, SyncOperation.update.rawValue, SyncOperation.delete.rawValue])
+    }
+
+    static func syncableObjectsPredicate(withSyncingOptions options: NSDictionary?) -> NSPredicate {
+        return NSPredicate(value: true)
+    }
+
+    @objc dynamic var clientCreated: TimeInterval = Date().timeIntervalSince1970
+    @objc dynamic var clientLastUpdated: TimeInterval = Date().timeIntervalSince1970
+    @objc dynamic var remoteId: String? = nil
+    @objc dynamic var localId: String = UUID().uuidString
+    @objc private dynamic var realmSyncOperation : String = SyncOperation.none.rawValue
+
+    {% for variable in type.storedVariables %}
+    @objc dynamic var {{ variable.name }}: {{ variable.typeName }} = {{ variable.typeName }}.sublimateDefault()
+    {% endfor %}
+
+    convenience init(dto: SyncableDTO<{{ type.name }}Object>) {
+        self.init()
+        remoteId = dto.syncIdentifier()
+        dto.update(object: self)
+    }
+
+    var clientCreatedDate : Date {
+        return Date(timeIntervalSince1970: clientCreated)
+    }
+
+    var clientLastUpdatedDate : Date {
+        return Date(timeIntervalSince1970: clientLastUpdated)
+    }
+}
+
+{% endfor %}
+// sourcery:end

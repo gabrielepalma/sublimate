@@ -1,0 +1,121 @@
+PODS:
+  - KeychainAccess (3.1.2)
+  - NVActivityIndicatorView (4.4.1):
+    - NVActivityIndicatorView/Presenter (= 4.4.1)
+  - NVActivityIndicatorView/Presenter (4.4.1)
+  - PromiseKit (6.5.2):
+    - PromiseKit/CorePromise (= 6.5.2)
+    - PromiseKit/Foundation (= 6.5.2)
+    - PromiseKit/UIKit (= 6.5.2)
+  - PromiseKit/CorePromise (6.5.2)
+  - PromiseKit/Foundation (6.5.2):
+    - PromiseKit/CorePromise
+  - PromiseKit/UIKit (6.5.2):
+    - PromiseKit/CorePromise
+  - ReachabilitySwift (4.3.0)
+  - Realm (3.11.1):
+    - Realm/Headers (= 3.11.1)
+  - Realm/Headers (3.11.1)
+  - RealmSwift (3.11.1):
+    - Realm (= 3.11.1)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxReachability (0.1.7):
+    - ReachabilitySwift (~> 4.3.0)
+    - RxCocoa (~> 4)
+    - RxSwift (~> 4)
+  - RxRealm (0.7.6):
+    - RealmSwift (~> 3.0)
+    - RxSwift (~> 4.0)
+  - RxRealmDataSources (0.2.10):
+    - RealmSwift (~> 3.10)
+    - RxCocoa (~> 4.0)
+    - RxRealm (~> 0.7.6)
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - SublimateSync (0.1.0):
+    - KeychainAccess
+    - PromiseKit
+    - ReachabilitySwift
+    - RealmSwift
+    - RxCocoa
+    - RxRealm
+    - RxSwift
+    - Swinject
+  - SublimateUI (0.1.0):
+    - KeychainAccess
+    - PromiseKit
+    - ReachabilitySwift
+    - RealmSwift
+    - RxCocoa
+    - RxRealm
+    - RxRealmDataSources
+    - RxSwift
+    - SublimateSync
+    - SwiftMessages
+  - SwiftMessages (6.0.2):
+    - SwiftMessages/App (= 6.0.2)
+  - SwiftMessages/App (6.0.2)
+  - Swinject (2.5.0)
+
+DEPENDENCIES:
+  - KeychainAccess
+  - NVActivityIndicatorView
+  - PromiseKit
+  - RealmSwift
+  - RxCocoa
+  - RxReachability
+  - RxRealm
+  - RxRealmDataSources
+  - RxSwift
+  - SublimateSync (from `..`)
+  - SublimateUI (from `..`)
+  - SwiftMessages
+  - Swinject
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - KeychainAccess
+    - NVActivityIndicatorView
+    - PromiseKit
+    - ReachabilitySwift
+    - Realm
+    - RealmSwift
+    - RxAtomic
+    - RxCocoa
+    - RxReachability
+    - RxRealm
+    - RxRealmDataSources
+    - RxSwift
+    - SwiftMessages
+    - Swinject
+
+EXTERNAL SOURCES:
+  SublimateSync:
+    :path: ".."
+  SublimateUI:
+    :path: ".."
+
+SPEC CHECKSUMS:
+  KeychainAccess: b3816fddcf28aa29d94b10ec305cd52be14c472b
+  NVActivityIndicatorView: f0a6b0ed2973d9544da268f4eb76696f0a9577b0
+  PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+  Realm: 037c5919b9ceb59d6beed5d3b031096856b119b3
+  RealmSwift: c9580133e73ef40ed340401af2dbc9a5790dfea7
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxReachability: 899637fce53e076465126e58d71ad835fce17924
+  RxRealm: 5379eddd74f8d617ca7681d1f8d144af25b432b0
+  RxRealmDataSources: 89b61c0d3edf7769da2a6bf4dcf317bc713394db
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SublimateSync: 753517c6c2554b7c721bb4f7f2ff7a7992f895b7
+  SublimateUI: 8e456d9e332fe92494fe1b9e7cfb13498ed76e1c
+  SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
+  Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
+
+PODFILE CHECKSUM: b5a9ec38e7c98b525c50f4c8263fb84f847de999
+
+COCOAPODS: 1.5.3

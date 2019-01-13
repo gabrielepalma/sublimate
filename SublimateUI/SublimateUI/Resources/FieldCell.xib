@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FieldCell" customModule="SublimateClient" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="492" height="62"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKW-dK-CYS">
+                    <rect key="frame" x="445" y="33" width="31" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="K2C-zI-R0Z"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAL-xv-cob">
+                    <rect key="frame" x="16" y="8" width="33.5" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="4I8-75-2Xa"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QKW-dK-CYS" secondAttribute="trailing" constant="16" id="0R9-Qq-ShS"/>
+                <constraint firstItem="QKW-dK-CYS" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="-8" id="5v9-zB-yOE"/>
+                <constraint firstItem="cAL-xv-cob" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="SFQ-Vk-x3u"/>
+                <constraint firstItem="cAL-xv-cob" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="TJW-Ga-mwL"/>
+                <constraint firstItem="QKW-dK-CYS" firstAttribute="top" secondItem="cAL-xv-cob" secondAttribute="bottom" constant="4" id="szY-4B-VPC"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="titleLabel" destination="cAL-xv-cob" id="His-Qp-5fy"/>
+                <outlet property="valueLabel" destination="QKW-dK-CYS" id="VXZ-Ym-vhp"/>
+            </connections>
+            <point key="canvasLocation" x="350.39999999999998" y="159.22038980509745"/>
+        </view>
+    </objects>
+</document>

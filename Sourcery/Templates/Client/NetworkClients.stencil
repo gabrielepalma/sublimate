@@ -1,0 +1,53 @@
+// sourcery:file:../../SublimateClient/SublimateClient/Sources/Generated/NetworkClients.swift
+// swiftlint:disable vertical_whitespace
+
+import UIKit
+import PromiseKit
+import RxSwift
+import SublimateSync
+
+{% for type in types.implementing.FrozenModel|class %}
+// MARK: - {{ type.name }} network client
+final class {{ type.name }}NetworkClient: NetworkClient<{{ type.name }}Object> {
+    var networkManager : NetworkManagerProtocol
+
+    init(networkManager : NetworkManagerProtocol) {
+        self.networkManager = networkManager
+    }
+
+    override func fetchAll(withSyncingOptions options: NSDictionary?) -> Promise<[SyncableDTO<{{ type.name }}Object>]> {
+        let request = Request(method: .GET, contentType: .JSON, path: "{{ type.name|lowerFirstLetter }}")
+
+        return Promise<[SyncableDTO<{{ type.name }}Object>]>(resolver: { (resolver) in
+            networkManager.makeRequest(request: request, responseType: [{{ type.name }}SyncableDTO.self]).done({ (response) in
+                resolver.fulfill(response)
+            }).catch({ (error) in
+                resolver.reject(error)
+            })
+        })
+    }
+
+    override func syncOne(item: {{ type.name }}Object) -> Promise<SyncableDTO<{{ type.name }}Object>> {
+        let body = try? JSONEncoder().encode({{ type.name }}SyncableDTO(from: item))
+        let request = Request(method: .POST, contentType: .JSON, path: "{{ type.name|lowerFirstLetter }}", body: body)
+
+        return Promise<SyncableDTO<{{ type.name }}Object>>(resolver: { (resolver) in
+            networkManager.makeRequest(request: request, responseType: {{ type.name }}SyncableDTO.self).done({ (response) in
+                resolver.fulfill(response)
+            }).catch({ (error) in
+                resolver.reject(error)
+            })
+        })
+    }
+
+    override func delete(item: {{ type.name }}Object) -> Promise<Void> {
+        guard let remoteId = item.remoteId else {
+            return Promise<Void>()
+        }
+        let request = Request(method: .DELETE, contentType: .JSON, path: "{{ type.name|lowerFirstLetter }}/\(remoteId)")
+        return networkManager.makeRequest(request: request)
+    }
+}
+
+{% endfor %}
+// sourcery:end
