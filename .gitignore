@@ -2,6 +2,13 @@
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+Packages
+SublimateVapor/.build
+SublimateVapor/xcuserdata
+SublimateVapor/*.xcodeproj
+SublimateVapor/DerivedData/
+SublimateVapor/.DS_Store
+
 ## Build generated
 build/
 DerivedData/
