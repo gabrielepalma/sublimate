@@ -1,6 +1,8 @@
 # sublimate
 Sublimate: Ridiculously fast full stack Swift prototyping with Vapor and Sourcery
 
+Work in progress, please forgive lack of formatting
+
 Quick start:
 
 1 - Clone the repository
