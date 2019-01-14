@@ -1,0 +1,8 @@
+sources:
+- Sourcery
+- SublimateVapor
+- SublimateClient/SublimateClient
+templates:
+- Sourcery/Templates/Client
+- Sourcery/Templates/Vapor
+output: Sourcery/Generated
