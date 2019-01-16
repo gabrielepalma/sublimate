@@ -2,8 +2,10 @@
 //  AppDelegate.swift
 //  SublimateClient
 //
-//  Created by Gabriele on 24/09/2018.
-//  Copyright © 2018 Gabriele. All rights reserved.
+//    ___  ____
+//   / __)(  _ \
+//  ( (_ \ ) __/
+//   \___/(__)   gabrielepalma.name
 //
 
 import UIKit

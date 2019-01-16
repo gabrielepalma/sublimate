@@ -1,9 +1,11 @@
 //
-//  PlainTableViewCell.swift
-//  SublimateClient
+//  SchemeCell.swift
+//  SublimateUI
 //
-//  Created by i335287 on 29/12/2018.
-//  Copyright © 2018 Gabriele. All rights reserved.
+//    ___  ____
+//   / __)(  _ \
+//  ( (_ \ ) __/
+//   \___/(__)   gabrielepalma.name
 //
 
 import UIKit
