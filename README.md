@@ -3,12 +3,10 @@ Sublimate: Ridiculously fast full stack Swift prototyping with Vapor and Sourcer
 
 # Quick start:
 
-- install Sourcery
+- install Sourcery, Vapor and CocoaPods
   ```sh 
+  brew install cocoapods
   brew install sourcery
-  ```
-- install Vapor
-  ```sh 
   brew install vapor/tap/vapor
   ```
 - clone Sublimate repo
