@@ -9,68 +9,66 @@ import Authentication
 
 public func configureSublimateRoutes(plain : Router, resourceGroup: Router) {
 
-    plain
-    let demoAlphaController = DemoAlphaController()
-    plain.get("demoAlpha", use: demoAlphaController.list)
-    plain.post("demoAlpha", use: demoAlphaController.create)
-    plain.delete("demoAlpha", DemoAlpha.parameter, use: demoAlphaController.delete)
+    let peopleController = PeopleController()
+    plain.get("people", use: peopleController.list)
+    plain.post("people", use: peopleController.create)
+    plain.delete("people", People.parameter, use: peopleController.delete)
 
-    resourceGroup
-    let demoBetaController = DemoBetaController()
-    resourceGroup.get("demoBeta", use: demoBetaController.list)
-    resourceGroup.post("demoBeta", use: demoBetaController.create)
-    resourceGroup.delete("demoBeta", DemoBeta.parameter, use: demoBetaController.delete)
+    let speechesController = SpeechesController()
+    resourceGroup.get("speeches", use: speechesController.list)
+    resourceGroup.post("speeches", use: speechesController.create)
+    resourceGroup.delete("speeches", Speeches.parameter, use: speechesController.delete)
 
 }
 
-class DemoAlphaController {
+class PeopleController {
 
     /// Returns the list
-    func list(_ req: Request) throws -> Future<[DemoAlpha]> {
+    func list(_ req: Request) throws -> Future<[People]> {
 
-        return DemoAlpha.query(on: req).all()
+        return People.query(on: req).all()
     }
 
     /// Creation API
-    func create(_ req: Request) throws -> Future<DemoAlpha> {
-        return try req.content.decode(DemoAlpha.self).flatMap { demoAlpha in
-            return demoAlpha.save(on: req)
+    func create(_ req: Request) throws -> Future<People> {
+        return try req.content.decode(People.self).flatMap { people in
+            return people.save(on: req)
         }
     }
 
     /// Deletion API
     func delete(_ req: Request) throws -> Future<HTTPStatus> {
-        return try req.parameters.next(DemoAlpha.self).flatMap { demoAlpha in
-            return demoAlpha.delete(on: req)
+        return try req.parameters.next(People.self).flatMap { people in
+            return people.delete(on: req)
         }.transform(to: .ok)
     }
 }
-class DemoBetaController {
+class SpeechesController {
 
     /// Returns the list
-    func list(_ req: Request) throws -> Future<[DemoBeta]> {
+    func list(_ req: Request) throws -> Future<[Speeches]> {
         let user = try req.requireAuthenticated(PublicUser.self)
 
-        return DemoBeta.query(on: req).filter(\DemoBeta.owner == user.userId).all()
+        return Speeches.query(on: req).filter(\Speeches.owner == user.userId).all()
     }
 
     /// Creation API
-    func create(_ req: Request) throws -> Future<DemoBeta> {
+    func create(_ req: Request) throws -> Future<Speeches> {
         let user = try req.requireAuthenticated(PublicUser.self)
-        return try req.content.decode(DemoBeta.self).flatMap { demoBeta in
-            demoBeta.owner = user.userId
-            return demoBeta.save(on: req)
+        return try req.content.decode(Speeches.self).flatMap { speeches in
+            speeches.owner = user.userId
+            return speeches.save(on: req)
         }
     }
 
     /// Deletion API
     func delete(_ req: Request) throws -> Future<HTTPStatus> {
-        // TODO: Rewrite this to be more functional
+        // GP TODO: Rewrite this to be more functional
         let user = try req.requireAuthenticated(PublicUser.self)
 
         let promise = req.eventLoop.newPromise(of: HTTPStatus.self)
         DispatchQueue.global().async {
-            guard let param = try? req.parameters.next(DemoBeta.self).wait() else {
+            guard let param = try? req.parameters.next(Speeches.self).wait() else {
                 promise.fail(error:Abort(HTTPResponseStatus.internalServerError))
                 return
             }
@@ -79,7 +77,7 @@ class DemoBetaController {
                 return
             }
             let uuid = UUID(objId)
-            if let fetch = try? DemoBeta.query(on: req).filter(\DemoBeta.id == uuid).first().wait(), let object = fetch, object.owner == user.userId  {
+            if let fetch = try? Speeches.query(on: req).filter(\Speeches.id == uuid).first().wait(), let object = fetch, object.owner == user.userId  {
                 try? object.delete(on: req).wait()
             }
             promise.succeed(result: .ok)

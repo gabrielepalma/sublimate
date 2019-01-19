@@ -22,7 +22,9 @@ final class {{ type.name }} : SQLiteUUIDModel {
 
     init(id: UUID? = nil {% if type.implements.OwnedFrozenModel %}, owner : String? = nil {% endif %} {% for variable in type.storedVariables %}, {{ variable.name }} : {{ variable.typeName }} {% endfor %}) {
         self.id = id
+        {% if type.implements.OwnedFrozenModel %}
         self.owner = owner
+        {% endif %}
         {% for variable in type.storedVariables %}self.{{ variable.name }} = {{ variable.name }}
         {% endfor %}
     }

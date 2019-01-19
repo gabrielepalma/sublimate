@@ -8,7 +8,6 @@ import Authentication
 public func configureSublimateRoutes(plain : Router, resourceGroup: Router) {
 
     {% for type in types.implementing.FrozenModel|class %}
-    {% if type.implements.OwnedFrozenModel %}resourceGroup{% else %}plain{% endif %}
     let {{ type.name|lowerFirstLetter }}Controller = {{ type.name }}Controller()
     {% if type.implements.OwnedFrozenModel %}resourceGroup{% else %}plain{% endif %}.get("{{ type.name|lowerFirstLetter }}", use: {{ type.name|lowerFirstLetter }}Controller.list)
     {% if type.implements.OwnedFrozenModel %}resourceGroup{% else %}plain{% endif %}.post("{{ type.name|lowerFirstLetter }}", use: {{ type.name|lowerFirstLetter }}Controller.create)

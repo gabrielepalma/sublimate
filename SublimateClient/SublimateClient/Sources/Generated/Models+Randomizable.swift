@@ -7,16 +7,21 @@ import UIKit
 import RealmSwift
 import SublimateUI
 
-extension DemoAlphaObject: Randomizable {
-    func randomize() {
-        text = String.random()
-        count = Int.random()
-    }
-}
-
-extension DemoBetaObject: Randomizable {
+extension PeopleObject: Randomizable {
     func randomize() {
         name = String.random()
         surname = String.random()
+        email = String.random()
+        age = Int.random()
+        weight = Double.random()
+    }
+}
+
+extension SpeechesObject: Randomizable {
+    func randomize() {
+        title = String.random()
+        content = String.random()
+        duration = Int.random()
+        grade = Double.random()
     }
 }

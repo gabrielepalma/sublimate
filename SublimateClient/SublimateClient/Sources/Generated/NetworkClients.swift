@@ -8,19 +8,19 @@ import PromiseKit
 import RxSwift
 import SublimateSync
 
-// MARK: - DemoAlpha network client
-final class DemoAlphaNetworkClient: NetworkClient<DemoAlphaObject> {
+// MARK: - People network client
+final class PeopleNetworkClient: NetworkClient<PeopleObject> {
     var networkManager : NetworkManagerProtocol
 
     init(networkManager : NetworkManagerProtocol) {
         self.networkManager = networkManager
     }
 
-    override func fetchAll(withSyncingOptions options: NSDictionary?) -> Promise<[SyncableDTO<DemoAlphaObject>]> {
-        let request = Request(method: .GET, contentType: .JSON, path: "demoAlpha")
+    override func fetchAll(withSyncingOptions options: NSDictionary?) -> Promise<[SyncableDTO<PeopleObject>]> {
+        let request = Request(method: .GET, contentType: .JSON, path: "people")
 
-        return Promise<[SyncableDTO<DemoAlphaObject>]>(resolver: { (resolver) in
-            networkManager.makeRequest(request: request, responseType: [DemoAlphaSyncableDTO.self]).done({ (response) in
+        return Promise<[SyncableDTO<PeopleObject>]>(resolver: { (resolver) in
+            networkManager.makeRequest(request: request, responseType: [PeopleSyncableDTO.self]).done({ (response) in
                 resolver.fulfill(response)
             }).catch({ (error) in
                 resolver.reject(error)
@@ -28,12 +28,12 @@ final class DemoAlphaNetworkClient: NetworkClient<DemoAlphaObject> {
         })
     }
 
-    override func syncOne(item: DemoAlphaObject) -> Promise<SyncableDTO<DemoAlphaObject>> {
-        let body = try? JSONEncoder().encode(DemoAlphaSyncableDTO(from: item))
-        let request = Request(method: .POST, contentType: .JSON, path: "demoAlpha", body: body)
+    override func syncOne(item: PeopleObject) -> Promise<SyncableDTO<PeopleObject>> {
+        let body = try? JSONEncoder().encode(PeopleSyncableDTO(from: item))
+        let request = Request(method: .POST, contentType: .JSON, path: "people", body: body)
 
-        return Promise<SyncableDTO<DemoAlphaObject>>(resolver: { (resolver) in
-            networkManager.makeRequest(request: request, responseType: DemoAlphaSyncableDTO.self).done({ (response) in
+        return Promise<SyncableDTO<PeopleObject>>(resolver: { (resolver) in
+            networkManager.makeRequest(request: request, responseType: PeopleSyncableDTO.self).done({ (response) in
                 resolver.fulfill(response)
             }).catch({ (error) in
                 resolver.reject(error)
@@ -41,28 +41,28 @@ final class DemoAlphaNetworkClient: NetworkClient<DemoAlphaObject> {
         })
     }
 
-    override func delete(item: DemoAlphaObject) -> Promise<Void> {
+    override func delete(item: PeopleObject) -> Promise<Void> {
         guard let remoteId = item.remoteId else {
             return Promise<Void>()
         }
-        let request = Request(method: .DELETE, contentType: .JSON, path: "demoAlpha/\(remoteId)")
+        let request = Request(method: .DELETE, contentType: .JSON, path: "people/\(remoteId)")
         return networkManager.makeRequest(request: request)
     }
 }
 
-// MARK: - DemoBeta network client
-final class DemoBetaNetworkClient: NetworkClient<DemoBetaObject> {
+// MARK: - Speeches network client
+final class SpeechesNetworkClient: NetworkClient<SpeechesObject> {
     var networkManager : NetworkManagerProtocol
 
     init(networkManager : NetworkManagerProtocol) {
         self.networkManager = networkManager
     }
 
-    override func fetchAll(withSyncingOptions options: NSDictionary?) -> Promise<[SyncableDTO<DemoBetaObject>]> {
-        let request = Request(method: .GET, contentType: .JSON, path: "demoBeta")
+    override func fetchAll(withSyncingOptions options: NSDictionary?) -> Promise<[SyncableDTO<SpeechesObject>]> {
+        let request = Request(method: .GET, contentType: .JSON, path: "speeches")
 
-        return Promise<[SyncableDTO<DemoBetaObject>]>(resolver: { (resolver) in
-            networkManager.makeRequest(request: request, responseType: [DemoBetaSyncableDTO.self]).done({ (response) in
+        return Promise<[SyncableDTO<SpeechesObject>]>(resolver: { (resolver) in
+            networkManager.makeRequest(request: request, responseType: [SpeechesSyncableDTO.self]).done({ (response) in
                 resolver.fulfill(response)
             }).catch({ (error) in
                 resolver.reject(error)
@@ -70,12 +70,12 @@ final class DemoBetaNetworkClient: NetworkClient<DemoBetaObject> {
         })
     }
 
-    override func syncOne(item: DemoBetaObject) -> Promise<SyncableDTO<DemoBetaObject>> {
-        let body = try? JSONEncoder().encode(DemoBetaSyncableDTO(from: item))
-        let request = Request(method: .POST, contentType: .JSON, path: "demoBeta", body: body)
+    override func syncOne(item: SpeechesObject) -> Promise<SyncableDTO<SpeechesObject>> {
+        let body = try? JSONEncoder().encode(SpeechesSyncableDTO(from: item))
+        let request = Request(method: .POST, contentType: .JSON, path: "speeches", body: body)
 
-        return Promise<SyncableDTO<DemoBetaObject>>(resolver: { (resolver) in
-            networkManager.makeRequest(request: request, responseType: DemoBetaSyncableDTO.self).done({ (response) in
+        return Promise<SyncableDTO<SpeechesObject>>(resolver: { (resolver) in
+            networkManager.makeRequest(request: request, responseType: SpeechesSyncableDTO.self).done({ (response) in
                 resolver.fulfill(response)
             }).catch({ (error) in
                 resolver.reject(error)
@@ -83,11 +83,11 @@ final class DemoBetaNetworkClient: NetworkClient<DemoBetaObject> {
         })
     }
 
-    override func delete(item: DemoBetaObject) -> Promise<Void> {
+    override func delete(item: SpeechesObject) -> Promise<Void> {
         guard let remoteId = item.remoteId else {
             return Promise<Void>()
         }
-        let request = Request(method: .DELETE, contentType: .JSON, path: "demoBeta/\(remoteId)")
+        let request = Request(method: .DELETE, contentType: .JSON, path: "speeches/\(remoteId)")
         return networkManager.makeRequest(request: request)
     }
 }

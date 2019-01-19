@@ -5,14 +5,17 @@
 
 import SublimateSync
 
-// MARK: - DemoAlpha network dto
-final class DemoAlphaSyncableDTO: SyncableDTO<DemoAlphaObject>, Codable {
-    private var dto : DemoAlphaDTO
+// MARK: - People network dto
+final class PeopleSyncableDTO: SyncableDTO<PeopleObject>, Codable {
+    private var dto : PeopleDTO
 
-    override init(from object: DemoAlphaObject) {
-        dto = DemoAlphaDTO()
-        self.dto.text = object.text
-        self.dto.count = object.count
+    override init(from object: PeopleObject) {
+        dto = PeopleDTO()
+        self.dto.name = object.name
+        self.dto.surname = object.surname
+        self.dto.email = object.email
+        self.dto.age = object.age
+        self.dto.weight = object.weight
         self.dto.id = object.remoteId
         super.init(from: object)
     }
@@ -20,15 +23,18 @@ final class DemoAlphaSyncableDTO: SyncableDTO<DemoAlphaObject>, Codable {
         return dto.id
     }
 
-    override func update(object: DemoAlphaObject) {
+    override func update(object: PeopleObject) {
         assert(object.remoteId == nil || self.dto.id == object.remoteId, "Updating an Object from a non-matching DTO")
         object.remoteId = self.dto.id
-        object.text = self.dto.text
-        object.count = self.dto.count
+        object.name = self.dto.name
+        object.surname = self.dto.surname
+        object.email = self.dto.email
+        object.age = self.dto.age
+        object.weight = self.dto.weight
     }
 
     public init(from decoder: Decoder) throws {
-        self.dto = try DemoAlphaDTO(from : decoder)
+        self.dto = try PeopleDTO(from : decoder)
         super.init()
     }
 
@@ -37,14 +43,16 @@ final class DemoAlphaSyncableDTO: SyncableDTO<DemoAlphaObject>, Codable {
     }
 }
 
-// MARK: - DemoBeta network dto
-final class DemoBetaSyncableDTO: SyncableDTO<DemoBetaObject>, Codable {
-    private var dto : DemoBetaDTO
+// MARK: - Speeches network dto
+final class SpeechesSyncableDTO: SyncableDTO<SpeechesObject>, Codable {
+    private var dto : SpeechesDTO
 
-    override init(from object: DemoBetaObject) {
-        dto = DemoBetaDTO()
-        self.dto.name = object.name
-        self.dto.surname = object.surname
+    override init(from object: SpeechesObject) {
+        dto = SpeechesDTO()
+        self.dto.title = object.title
+        self.dto.content = object.content
+        self.dto.duration = object.duration
+        self.dto.grade = object.grade
         self.dto.id = object.remoteId
         super.init(from: object)
     }
@@ -52,15 +60,17 @@ final class DemoBetaSyncableDTO: SyncableDTO<DemoBetaObject>, Codable {
         return dto.id
     }
 
-    override func update(object: DemoBetaObject) {
+    override func update(object: SpeechesObject) {
         assert(object.remoteId == nil || self.dto.id == object.remoteId, "Updating an Object from a non-matching DTO")
         object.remoteId = self.dto.id
-        object.name = self.dto.name
-        object.surname = self.dto.surname
+        object.title = self.dto.title
+        object.content = self.dto.content
+        object.duration = self.dto.duration
+        object.grade = self.dto.grade
     }
 
     public init(from decoder: Decoder) throws {
-        self.dto = try DemoBetaDTO(from : decoder)
+        self.dto = try SpeechesDTO(from : decoder)
         super.init()
     }
 

@@ -7,43 +7,52 @@ import FluentSQLite
 import Vapor
 
 public func configureSublimateMigration(migrations : inout MigrationConfig) {
-    migrations.add(model: DemoAlpha.self, database: .sqlite)
-    migrations.add(model: DemoBeta.self, database: .sqlite)
+    migrations.add(model: People.self, database: .sqlite)
+    migrations.add(model: Speeches.self, database: .sqlite)
 }
 
-// MARK: - DemoAlpha definition
-final class DemoAlpha : SQLiteUUIDModel {
+// MARK: - People definition
+final class People : SQLiteUUIDModel {
     var id: UUID?
-    var text: String
-    var count: Int
-
-    init(id: UUID? = nil  , text : String , count : Int ) {
-        self.id = id
-        self.owner = owner
-        self.text = text
-        self.count = count
-    }
-}
-
-extension DemoAlpha: Migration { }
-extension DemoAlpha: Content   { }
-extension DemoAlpha: Parameter { }
-
-// MARK: - DemoBeta definition
-final class DemoBeta : SQLiteUUIDModel {
-    var id: UUID?
-    var owner: String?
     var name: String
     var surname: String
+    var email: String
+    var age: Int
+    var weight: Double
 
-    init(id: UUID? = nil , owner : String? = nil  , name : String , surname : String ) {
+    init(id: UUID? = nil  , name : String , surname : String , email : String , age : Int , weight : Double ) {
         self.id = id
-        self.owner = owner
         self.name = name
         self.surname = surname
+        self.email = email
+        self.age = age
+        self.weight = weight
     }
 }
 
-extension DemoBeta: Migration { }
-extension DemoBeta: Content   { }
-extension DemoBeta: Parameter { }
+extension People: Migration { }
+extension People: Content   { }
+extension People: Parameter { }
+
+// MARK: - Speeches definition
+final class Speeches : SQLiteUUIDModel {
+    var id: UUID?
+    var owner: String?
+    var title: String
+    var content: String
+    var duration: Int
+    var grade: Double
+
+    init(id: UUID? = nil , owner : String? = nil  , title : String , content : String , duration : Int , grade : Double ) {
+        self.id = id
+        self.owner = owner
+        self.title = title
+        self.content = content
+        self.duration = duration
+        self.grade = grade
+    }
+}
+
+extension Speeches: Migration { }
+extension Speeches: Content   { }
+extension Speeches: Parameter { }

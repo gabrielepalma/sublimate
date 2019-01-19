@@ -129,6 +129,7 @@ class AuthenticationViewController: UIViewController, NVActivityIndicatorViewabl
     func setupVisuals() {
         self.view.backgroundColor = UIColor.white
 
+        self.passwordTextView.isSecureTextEntry = true
         self.passwordTextView.backgroundColor = UIColor.lightGray
         self.usernameTextView.backgroundColor = UIColor.lightGray
 
