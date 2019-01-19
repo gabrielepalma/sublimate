@@ -1,40 +1,62 @@
 # sublimate
 Sublimate: Ridiculously fast full stack Swift prototyping with Vapor and Sourcery
 
-Work in progress, please forgive lack of formatting
+# Quick start:
 
-Quick start:
+- install Sourcery
+  ```sh 
+  brew install sourcery
+  ```
+- install Vapor
+  ```sh 
+  brew install vapor/tap/vapor
+  ```
+- clone Sublimate repo
+  ```sh 
+  $ git clone https://github.com/gabrielepalma/sublimate.git
+  ```
+- edit the file Demo.swift in Sourcery/Models: 
+  - add new frost models as you see fit. 
+  - if implements FrozenModel, it will be public and won't require any authentication
+  - if implements OwnedFrozenModel, it will be private, matched to the user and require authentication
+  - the primary keys will be added automatically.
+  - only Int, Double and String field types are currently supported
+- run Sourcery: from the repository root run
+    ```sh 
+  $ sourcery
+  ```
+- create the Vapor project: from SublimateVapor folder run
+    ```sh 
+  $ vapor xcode
+  ```
+- open the Vapor project and run it
+- download CocoaPods dependencies: from SublimateClient folder run
+    ```sh 
+  $ pod install
+  ```
+- open the Client workspace and run it on simulator
 
-1 - Clone the repository
-2 - Edit file Demo.swift in Sourcery/Models: Add new FrozenModel(s) as you see fit. We currently only support Int, Double and String field types. OwnedFrozenModel(s) will require authentication. Primary keys will be added automatically.
-3 - Run sourcery in Sublimate root. No parameters are needed as sourcery.yml is provided.
-4 - Open the project in SublimateVapor and Run it 
-5 - Open the workspace in SublimateClient and Run it
-
+# Features
 The project provides:
 On server: 
-
-(i)   Fluent models for Vapor based on the models provided in Sourcery/Models/
-(ii)  CRUD routes for Vapor models
-(iii) Middlewares for authentication routes
-(iv)  Authentication logic based on Refresh/Access JWT tokens.
+- fluent models for Vapor generated from the frost models provided
+- appropriate GET, POST and DELETE routes for CRUD operation on models
+- middlewares for the routes requiring authentication 
+- authentication logic based on Refresh/Access dichotomy and JWT tokens.
 
 On client:
+- network clients and related DTOs based on PromiseKit
+- an offline-first synchronization framework (SublimateSync) based on RxSwift and Realm.
+- a mock UI (SublimateUI) to be used as a demo/test application
+- an authentication client, manager and view controller, including automatic refresh of the access token
 
-(i)   Network client and related DTOs
-(ii)  An offline-first synchronization framework (SublimateSync)
-(iii) A mock UI (SublimateUI)
-(iv)  Realm models extended to be used with both SublimateSync and SublimateUI
-(v)   Authentication client, manager and view controller, including automatic refresh of the access token
+The resulting mock UI is ready to run, demonstrating authentication, synchronization and (randomized) CRUD operations.
 
-The resulting mock UI should be ready to run, demonstrating authentication, synchronization and (randomized) CRUD operations.
+<img src="https://raw.githubusercontent.com/gabrielepalma/sublimate/master/Sublimate.jpg" />
 
-All the above is designed to be partially thrown away. Network clients and DTOs can be used without the SublimateSync and the Realm models which are in turn designed to also be used without the mock UI. You can easily throw away what you don't need.
+# Coming next
 
-Current work in progress, soon to be available:
-
-Customizable User Profile
-Support for image upload (via multipart POST requests) and download (with cache and arbitrary thumbnail resizing)
-
+- customizable User Profile
+- support for image upload (via multipart POST requests) and download (with cache and arbitrary thumbnail resizing)
 
 
