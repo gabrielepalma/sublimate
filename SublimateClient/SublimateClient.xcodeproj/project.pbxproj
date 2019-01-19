@@ -7,49 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E183E5421E9FC61008F57D1 /* AuthenticationProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E183E5321E9FC61008F57D1 /* AuthenticationProtocols.swift */; };
-		2E2ABE2921933FDA0001ADB6 /* Syncable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2ABE2821933FDA0001ADB6 /* Syncable.swift */; };
-		2E2ABE322193460A0001ADB6 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2ABE312193460A0001ADB6 /* Logger.swift */; };
-		2E2ABE34219346CA0001ADB6 /* ReadOnlyBehaviourRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2ABE33219346CA0001ADB6 /* ReadOnlyBehaviourRelay.swift */; };
-		2E2ABE3821934DBB0001ADB6 /* Syncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2ABE3721934DBB0001ADB6 /* Syncer.swift */; };
 		2E2ABE3B2194AD150001ADB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2ABE392194AD150001ADB6 /* AppDelegate.swift */; };
 		2E76645421B04C4700B9DF3C /* AppDelegate+DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76645321B04C4700B9DF3C /* AppDelegate+DI.swift */; };
 		2E76645D21B053F200B9DF3C /* RealmConfiguration+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E76645C21B053F200B9DF3C /* RealmConfiguration+Utility.swift */; };
 		2E7B63B221E1630000D6D981 /* AuthenticationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7B63B121E1630000D6D981 /* AuthenticationClient.swift */; };
-		2E7B63B421E1631000D6D981 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7B63B321E1631000D6D981 /* AuthenticationManager.swift */; };
 		2E7B63B621E1633F00D6D981 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7B63B521E1633F00D6D981 /* AuthenticationViewController.swift */; };
-		2E7B63B821E1764900D6D981 /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7B63B721E1764900D6D981 /* JWT.swift */; };
 		2E7B63BA21E1CE0300D6D981 /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E7B63B921E1CE0300D6D981 /* Authentication.storyboard */; };
 		2EACC9A12188BF3000FD29E9 /* .sourcery.yml in Resources */ = {isa = PBXBuildFile; fileRef = 2EACC9A02188BF3000FD29E9 /* .sourcery.yml */; };
-		2EB4E10521D666E70093C6E9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E10421D666E70093C6E9 /* NetworkManager.swift */; };
-		2EB4E10D21D6B0F70093C6E9 /* ObjectsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E10C21D6B0F70093C6E9 /* ObjectsTableViewController.swift */; };
-		2EB4E10F21D7C5940093C6E9 /* ObjectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E10E21D7C5940093C6E9 /* ObjectCell.swift */; };
-		2EB4E11B21D829810093C6E9 /* SchemeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E11A21D829810093C6E9 /* SchemeCell.swift */; };
-		2EB4E11D21D836B60093C6E9 /* SchemesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4E11C21D836B60093C6E9 /* SchemesTableViewController.swift */; };
-		2EB4E11F21D919070093C6E9 /* ObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EB4E11E21D919070093C6E9 /* ObjectCell.xib */; };
-		2EB4E12121D9191B0093C6E9 /* SchemeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EB4E12021D9191B0093C6E9 /* SchemeCell.xib */; };
 		2EBB99FF21E47F2B0083EDCC /* MessageView+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB99FE21E47F2B0083EDCC /* MessageView+Utility.swift */; };
-		2EBB9A0121E4AE670083EDCC /* FieldsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB9A0021E4AE670083EDCC /* FieldsTableViewController.swift */; };
-		2EBB9A0321E4B6810083EDCC /* FieldCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EBB9A0221E4B6810083EDCC /* FieldCell.xib */; };
 		2EBB9A0521E4E8ED0083EDCC /* AppDelegate+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB9A0421E4E8ED0083EDCC /* AppDelegate+Init.swift */; };
-		2EBB9A0721E4EF000083EDCC /* Types+Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB9A0621E4EF000083EDCC /* Types+Defaults.swift */; };
-		2EBB9A0921E4EF650083EDCC /* Types+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBB9A0821E4EF650083EDCC /* Types+Random.swift */; };
-		2EE6216C21E4F34A00297BAF /* LoremGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6216B21E4F34A00297BAF /* LoremGenerator.swift */; };
-		2EE6217021E4FED200297BAF /* FieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6216F21E4FED200297BAF /* FieldCell.swift */; };
-		2EE6217221E4FF8100297BAF /* UIStoryboard+Instantiate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6217121E4FF8100297BAF /* UIStoryboard+Instantiate.swift */; };
-		2EE6217721E5063F00297BAF /* ActionPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EE6217621E5063F00297BAF /* ActionPanel.storyboard */; };
-		2EE6217921E5159A00297BAF /* ActionPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6217821E5159A00297BAF /* ActionPanelViewController.swift */; };
-		2EE6217E21E6F80C00297BAF /* Models in Resources */ = {isa = PBXBuildFile; fileRef = 2EE6217C21E6F80C00297BAF /* Models */; };
-		2EE6217F21E6F80C00297BAF /* Templates in Resources */ = {isa = PBXBuildFile; fileRef = 2EE6217D21E6F80C00297BAF /* Templates */; };
 		2EE6218621E6FB0500297BAF /* Models+Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6218021E6FB0500297BAF /* Models+Presentable.swift */; };
 		2EE6218721E6FB0500297BAF /* Models+Randomizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6218121E6FB0500297BAF /* Models+Randomizable.swift */; };
 		2EE6218A21E6FB0500297BAF /* ObjectModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6218421E6FB0500297BAF /* ObjectModels.swift */; };
 		2EE6218B21E6FB0500297BAF /* ServiceRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6218521E6FB0500297BAF /* ServiceRegistration.swift */; };
-		2EEF402821EB8C040063AEDA /* ReadOnlyVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF402721EB8C040063AEDA /* ReadOnlyVariable.swift */; };
 		2EEF402B21EB999F0063AEDA /* ObjectDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF402921EB999F0063AEDA /* ObjectDTOs.swift */; };
 		2EEF402C21EB999F0063AEDA /* NetworkClients.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF402A21EB999F0063AEDA /* NetworkClients.swift */; };
 		2EEF402E21EB9AFD0063AEDA /* SyncableDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF402D21EB9AFD0063AEDA /* SyncableDTOs.swift */; };
-		2EF1BCAC21E8F90000DD7B43 /* SublimateUICompatible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1BCAB21E8F90000DD7B43 /* SublimateUICompatible.swift */; };
+		2EF60E8521F34B0000AC5260 /* Sourcery in Resources */ = {isa = PBXBuildFile; fileRef = 2EF60E8421F34AFF00AC5260 /* Sourcery */; };
 		6A81FEFFED1889416E1365A0 /* Pods_SublimateClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D9E85FCCD2D6015B947A976 /* Pods_SublimateClient.framework */; };
 		814C9756BBEA3A4CCC605FC3 /* Pods_SublimateClientUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56CFBA0EC9251F52B08E2ED7 /* Pods_SublimateClientUITests.framework */; };
 		E02AACF12159806500F5E966 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E02AACEF2159806500F5E966 /* Main.storyboard */; };
@@ -79,53 +53,27 @@
 
 /* Begin PBXFileReference section */
 		0E87E7F9C2745200BC1CDE48 /* Pods-SublimateClientUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SublimateClientUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SublimateClientUITests/Pods-SublimateClientUITests.release.xcconfig"; sourceTree = "<group>"; };
-		2E183E5321E9FC61008F57D1 /* AuthenticationProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationProtocols.swift; sourceTree = "<group>"; };
-		2E2ABE2821933FDA0001ADB6 /* Syncable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syncable.swift; sourceTree = "<group>"; };
-		2E2ABE312193460A0001ADB6 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		2E2ABE33219346CA0001ADB6 /* ReadOnlyBehaviourRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyBehaviourRelay.swift; sourceTree = "<group>"; };
-		2E2ABE3721934DBB0001ADB6 /* Syncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Syncer.swift; sourceTree = "<group>"; };
 		2E2ABE392194AD150001ADB6 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E2ABE3D2194ADFA0001ADB6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E76645321B04C4700B9DF3C /* AppDelegate+DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+DI.swift"; sourceTree = "<group>"; };
 		2E76645C21B053F200B9DF3C /* RealmConfiguration+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RealmConfiguration+Utility.swift"; sourceTree = "<group>"; };
 		2E7B63B121E1630000D6D981 /* AuthenticationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationClient.swift; sourceTree = "<group>"; };
-		2E7B63B321E1631000D6D981 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		2E7B63B521E1633F00D6D981 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
-		2E7B63B721E1764900D6D981 /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 		2E7B63B921E1CE0300D6D981 /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
 		2E7B63BD21E4028600D6D981 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2E7B63BF21E4050200D6D981 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E7B63C121E4051800D6D981 /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EACC9A02188BF3000FD29E9 /* .sourcery.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = .sourcery.yml; path = ../.sourcery.yml; sourceTree = "<group>"; };
-		2EB4E10421D666E70093C6E9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		2EB4E10C21D6B0F70093C6E9 /* ObjectsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsTableViewController.swift; sourceTree = "<group>"; };
-		2EB4E10E21D7C5940093C6E9 /* ObjectCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCell.swift; sourceTree = "<group>"; };
-		2EB4E11A21D829810093C6E9 /* SchemeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeCell.swift; sourceTree = "<group>"; };
-		2EB4E11C21D836B60093C6E9 /* SchemesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemesTableViewController.swift; sourceTree = "<group>"; };
-		2EB4E11E21D919070093C6E9 /* ObjectCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ObjectCell.xib; sourceTree = "<group>"; };
-		2EB4E12021D9191B0093C6E9 /* SchemeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SchemeCell.xib; sourceTree = "<group>"; };
 		2EBB99FE21E47F2B0083EDCC /* MessageView+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MessageView+Utility.swift"; sourceTree = "<group>"; };
-		2EBB9A0021E4AE670083EDCC /* FieldsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsTableViewController.swift; sourceTree = "<group>"; };
-		2EBB9A0221E4B6810083EDCC /* FieldCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FieldCell.xib; sourceTree = "<group>"; };
 		2EBB9A0421E4E8ED0083EDCC /* AppDelegate+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Init.swift"; sourceTree = "<group>"; };
-		2EBB9A0621E4EF000083EDCC /* Types+Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Types+Defaults.swift"; sourceTree = "<group>"; };
-		2EBB9A0821E4EF650083EDCC /* Types+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Types+Random.swift"; sourceTree = "<group>"; };
-		2EE6216B21E4F34A00297BAF /* LoremGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoremGenerator.swift; sourceTree = "<group>"; };
-		2EE6216F21E4FED200297BAF /* FieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldCell.swift; sourceTree = "<group>"; };
-		2EE6217121E4FF8100297BAF /* UIStoryboard+Instantiate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Instantiate.swift"; sourceTree = "<group>"; };
-		2EE6217621E5063F00297BAF /* ActionPanel.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActionPanel.storyboard; sourceTree = "<group>"; };
-		2EE6217821E5159A00297BAF /* ActionPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionPanelViewController.swift; sourceTree = "<group>"; };
-		2EE6217C21E6F80C00297BAF /* Models */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Models; path = ../../../../Sourcery/Models; sourceTree = "<group>"; };
-		2EE6217D21E6F80C00297BAF /* Templates */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Templates; path = ../../../../Sourcery/Templates; sourceTree = "<group>"; };
 		2EE6218021E6FB0500297BAF /* Models+Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Models+Presentable.swift"; sourceTree = "<group>"; };
 		2EE6218121E6FB0500297BAF /* Models+Randomizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Models+Randomizable.swift"; sourceTree = "<group>"; };
 		2EE6218421E6FB0500297BAF /* ObjectModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectModels.swift; sourceTree = "<group>"; };
 		2EE6218521E6FB0500297BAF /* ServiceRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceRegistration.swift; sourceTree = "<group>"; };
-		2EEF402721EB8C040063AEDA /* ReadOnlyVariable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyVariable.swift; sourceTree = "<group>"; };
 		2EEF402921EB999F0063AEDA /* ObjectDTOs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectDTOs.swift; sourceTree = "<group>"; };
 		2EEF402A21EB999F0063AEDA /* NetworkClients.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClients.swift; sourceTree = "<group>"; };
 		2EEF402D21EB9AFD0063AEDA /* SyncableDTOs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncableDTOs.swift; sourceTree = "<group>"; };
-		2EF1BCAB21E8F90000DD7B43 /* SublimateUICompatible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SublimateUICompatible.swift; sourceTree = "<group>"; };
+		2EF60E8421F34AFF00AC5260 /* Sourcery */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Sourcery; path = ../Sourcery; sourceTree = SOURCE_ROOT; };
 		4CF68A5DC7F6B153F8A736AB /* Pods-SublimateClientTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SublimateClientTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SublimateClientTests/Pods-SublimateClientTests.release.xcconfig"; sourceTree = "<group>"; };
 		56CFBA0EC9251F52B08E2ED7 /* Pods_SublimateClientUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SublimateClientUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		61508C3A94014201378D8CAA /* Pods-SublimateClientTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SublimateClientTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SublimateClientTests/Pods-SublimateClientTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -174,48 +122,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E183E5521EA2B2C008F57D1 /* Syncing */ = {
-			isa = PBXGroup;
-			children = (
-				2E2ABE2821933FDA0001ADB6 /* Syncable.swift */,
-				2E2ABE3721934DBB0001ADB6 /* Syncer.swift */,
-			);
-			path = Syncing;
-			sourceTree = "<group>";
-		};
-		2E2ABE2C2193414C0001ADB6 /* Sync Candidates */ = {
-			isa = PBXGroup;
-			children = (
-				2EB4E10421D666E70093C6E9 /* NetworkManager.swift */,
-				2E7B63B321E1631000D6D981 /* AuthenticationManager.swift */,
-				2E183E5321E9FC61008F57D1 /* AuthenticationProtocols.swift */,
-				2E7B63B721E1764900D6D981 /* JWT.swift */,
-				2E2ABE312193460A0001ADB6 /* Logger.swift */,
-				2EEF402F21EBB4890063AEDA /* Rx Support */,
-				2E183E5521EA2B2C008F57D1 /* Syncing */,
-				2EE6216D21E4F3E700297BAF /* Type Extensions */,
-			);
-			path = "Sync Candidates";
-			sourceTree = "<group>";
-		};
-		2E2ABE2D2193415D0001ADB6 /* UI Candidates */ = {
-			isa = PBXGroup;
-			children = (
-				2EE6217121E4FF8100297BAF /* UIStoryboard+Instantiate.swift */,
-				2EF1BCAB21E8F90000DD7B43 /* SublimateUICompatible.swift */,
-				2EE6217321E500DD00297BAF /* Schemes Overview */,
-				2EE6217421E500EB00297BAF /* Object List */,
-				2EE6217521E500F000297BAF /* Detail Screen */,
-			);
-			path = "UI Candidates";
-			sourceTree = "<group>";
-		};
 		2E2ABE2E219341740001ADB6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				2E2ABE392194AD150001ADB6 /* AppDelegate.swift */,
 				2E76645521B04D7800B9DF3C /* Generated */,
-				2E76644A21B0494300B9DF3C /* Sourcery */,
 				2E7B63B021E162E800D6D981 /* Authentication */,
 				2EBB9A0421E4E8ED0083EDCC /* AppDelegate+Init.swift */,
 				2E76645321B04C4700B9DF3C /* AppDelegate+DI.swift */,
@@ -233,15 +144,6 @@
 				E02AACF22159806F00F5E966 /* Assets.xcassets */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		2E76644A21B0494300B9DF3C /* Sourcery */ = {
-			isa = PBXGroup;
-			children = (
-				2EE6217C21E6F80C00297BAF /* Models */,
-				2EE6217D21E6F80C00297BAF /* Templates */,
-			);
-			path = Sourcery;
 			sourceTree = "<group>";
 		};
 		2E76645521B04D7800B9DF3C /* Generated */ = {
@@ -266,57 +168,6 @@
 				2E7B63B921E1CE0300D6D981 /* Authentication.storyboard */,
 			);
 			path = Authentication;
-			sourceTree = "<group>";
-		};
-		2EE6216D21E4F3E700297BAF /* Type Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				2EBB9A0621E4EF000083EDCC /* Types+Defaults.swift */,
-				2EBB9A0821E4EF650083EDCC /* Types+Random.swift */,
-				2EE6216B21E4F34A00297BAF /* LoremGenerator.swift */,
-			);
-			path = "Type Extensions";
-			sourceTree = "<group>";
-		};
-		2EE6217321E500DD00297BAF /* Schemes Overview */ = {
-			isa = PBXGroup;
-			children = (
-				2EB4E11C21D836B60093C6E9 /* SchemesTableViewController.swift */,
-				2EB4E11A21D829810093C6E9 /* SchemeCell.swift */,
-				2EB4E12021D9191B0093C6E9 /* SchemeCell.xib */,
-			);
-			path = "Schemes Overview";
-			sourceTree = "<group>";
-		};
-		2EE6217421E500EB00297BAF /* Object List */ = {
-			isa = PBXGroup;
-			children = (
-				2EB4E10C21D6B0F70093C6E9 /* ObjectsTableViewController.swift */,
-				2EB4E10E21D7C5940093C6E9 /* ObjectCell.swift */,
-				2EB4E11E21D919070093C6E9 /* ObjectCell.xib */,
-			);
-			path = "Object List";
-			sourceTree = "<group>";
-		};
-		2EE6217521E500F000297BAF /* Detail Screen */ = {
-			isa = PBXGroup;
-			children = (
-				2EE6217821E5159A00297BAF /* ActionPanelViewController.swift */,
-				2EE6217621E5063F00297BAF /* ActionPanel.storyboard */,
-				2EBB9A0021E4AE670083EDCC /* FieldsTableViewController.swift */,
-				2EE6216F21E4FED200297BAF /* FieldCell.swift */,
-				2EBB9A0221E4B6810083EDCC /* FieldCell.xib */,
-			);
-			path = "Detail Screen";
-			sourceTree = "<group>";
-		};
-		2EEF402F21EBB4890063AEDA /* Rx Support */ = {
-			isa = PBXGroup;
-			children = (
-				2E2ABE33219346CA0001ADB6 /* ReadOnlyBehaviourRelay.swift */,
-				2EEF402721EB8C040063AEDA /* ReadOnlyVariable.swift */,
-			);
-			path = "Rx Support";
 			sourceTree = "<group>";
 		};
 		6615AD352B539ACEA6EE4EA7 /* Pods */ = {
@@ -372,10 +223,9 @@
 			isa = PBXGroup;
 			children = (
 				2E2ABE3D2194ADFA0001ADB6 /* Info.plist */,
+				2EF60E8421F34AFF00AC5260 /* Sourcery */,
 				2E2ABE2E219341740001ADB6 /* Sources */,
 				2E2ABE30219341F00001ADB6 /* Resources */,
-				2E2ABE2D2193415D0001ADB6 /* UI Candidates */,
-				2E2ABE2C2193414C0001ADB6 /* Sync Candidates */,
 			);
 			path = SublimateClient;
 			sourceTree = "<group>";
@@ -507,16 +357,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EE6217F21E6F80C00297BAF /* Templates in Resources */,
-				2EE6217E21E6F80C00297BAF /* Models in Resources */,
 				2E7B63BA21E1CE0300D6D981 /* Authentication.storyboard in Resources */,
-				2EBB9A0321E4B6810083EDCC /* FieldCell.xib in Resources */,
 				E02AACF62159806F00F5E966 /* LaunchScreen.storyboard in Resources */,
-				2EE6217721E5063F00297BAF /* ActionPanel.storyboard in Resources */,
-				2EB4E11F21D919070093C6E9 /* ObjectCell.xib in Resources */,
+				2EF60E8521F34B0000AC5260 /* Sourcery in Resources */,
 				E02AACF32159806F00F5E966 /* Assets.xcassets in Resources */,
 				E02AACF12159806500F5E966 /* Main.storyboard in Resources */,
-				2EB4E12121D9191B0093C6E9 /* SchemeCell.xib in Resources */,
 				2EACC9A12188BF3000FD29E9 /* .sourcery.yml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -652,36 +497,15 @@
 				2E7B63B621E1633F00D6D981 /* AuthenticationViewController.swift in Sources */,
 				2E76645421B04C4700B9DF3C /* AppDelegate+DI.swift in Sources */,
 				2EEF402E21EB9AFD0063AEDA /* SyncableDTOs.swift in Sources */,
-				2E2ABE34219346CA0001ADB6 /* ReadOnlyBehaviourRelay.swift in Sources */,
-				2EB4E10F21D7C5940093C6E9 /* ObjectCell.swift in Sources */,
-				2EB4E11D21D836B60093C6E9 /* SchemesTableViewController.swift in Sources */,
 				2EE6218721E6FB0500297BAF /* Models+Randomizable.swift in Sources */,
 				2EBB99FF21E47F2B0083EDCC /* MessageView+Utility.swift in Sources */,
-				2EBB9A0721E4EF000083EDCC /* Types+Defaults.swift in Sources */,
-				2EB4E11B21D829810093C6E9 /* SchemeCell.swift in Sources */,
-				2EE6217021E4FED200297BAF /* FieldCell.swift in Sources */,
-				2EB4E10521D666E70093C6E9 /* NetworkManager.swift in Sources */,
 				2EEF402B21EB999F0063AEDA /* ObjectDTOs.swift in Sources */,
-				2EBB9A0121E4AE670083EDCC /* FieldsTableViewController.swift in Sources */,
-				2E183E5421E9FC61008F57D1 /* AuthenticationProtocols.swift in Sources */,
-				2EEF402821EB8C040063AEDA /* ReadOnlyVariable.swift in Sources */,
-				2E2ABE322193460A0001ADB6 /* Logger.swift in Sources */,
 				2E7B63B221E1630000D6D981 /* AuthenticationClient.swift in Sources */,
-				2E7B63B421E1631000D6D981 /* AuthenticationManager.swift in Sources */,
 				2E76645D21B053F200B9DF3C /* RealmConfiguration+Utility.swift in Sources */,
-				2E2ABE3821934DBB0001ADB6 /* Syncer.swift in Sources */,
-				2EE6216C21E4F34A00297BAF /* LoremGenerator.swift in Sources */,
-				2E7B63B821E1764900D6D981 /* JWT.swift in Sources */,
 				2EE6218B21E6FB0500297BAF /* ServiceRegistration.swift in Sources */,
 				2EEF402C21EB999F0063AEDA /* NetworkClients.swift in Sources */,
-				2EF1BCAC21E8F90000DD7B43 /* SublimateUICompatible.swift in Sources */,
 				2EE6218621E6FB0500297BAF /* Models+Presentable.swift in Sources */,
-				2EE6217221E4FF8100297BAF /* UIStoryboard+Instantiate.swift in Sources */,
-				2EBB9A0921E4EF650083EDCC /* Types+Random.swift in Sources */,
 				2E2ABE3B2194AD150001ADB6 /* AppDelegate.swift in Sources */,
-				2E2ABE2921933FDA0001ADB6 /* Syncable.swift in Sources */,
-				2EE6217921E5159A00297BAF /* ActionPanelViewController.swift in Sources */,
-				2EB4E10D21D6B0F70093C6E9 /* ObjectsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
