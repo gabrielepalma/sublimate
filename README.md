@@ -36,6 +36,7 @@ Sublimate: Ridiculously fast full stack Swift prototyping with Vapor and Sourcer
 
 # Features
 The project provides:
+
 On server: 
 - fluent models for Vapor generated from the frost models provided
 - appropriate GET, POST and DELETE routes for CRUD operation on models
