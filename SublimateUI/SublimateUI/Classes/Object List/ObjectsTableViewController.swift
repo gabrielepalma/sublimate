@@ -83,6 +83,11 @@ public class ObjectsTableViewController<T : SublimateUICompatible>: UITableViewC
         syncer?.scheduleSyncronization()
     }
 
+    public override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        syncer?.stopRefreshTimer()
+    }
+
     // MARK: - Table view data source
 
     override public func numberOfSections(in tableView: UITableView) -> Int {

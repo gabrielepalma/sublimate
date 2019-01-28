@@ -14,6 +14,7 @@ import RealmSwift
 import PromiseKit
 import RxRealm
 import Reachability
+import RxReachability
 import RxCocoa
 
 public protocol SyncerProtocol {
@@ -29,9 +30,8 @@ public protocol SyncerProtocol {
 public class Syncer <T : Syncable> : SyncerProtocol {
     let realmConfiguration : Realm.Configuration
 
-    func isReachable() -> Observable<Bool> {
-        // GP TODO: Inject Reachability in the logic
-        return Observable<Bool>.just(true)
+    var isReachable: Observable<Bool> {
+        return reachability.rx.isReachable.startWith(reachability.connection != .none)
     }
 
     private let networkClient : NetworkClient<T>
@@ -199,17 +199,22 @@ public class Syncer <T : Syncable> : SyncerProtocol {
     
     private func subscribeSynchronization() {
         // GP TODO: We need an exponential backoff when the synchronization is failing
-        Observable.combineLatest(
-            hasPendingChanges.asObservable(),
-            isSyncScheduled.asObservable(),
-            isReachable(),
-            isSyncingInternal.asObservable()).map { (hasPendingChanges, isSyncScheduled, isReachable, isSyncingInternal) -> Bool in
+        Observable
+            .combineLatest(
+                hasPendingChanges.asObservable(),
+                isSyncScheduled.asObservable(),
+                isReachable,
+                isSyncingInternal.asObservable())
+            .map { (hasPendingChanges, isSyncScheduled, isReachable, isSyncingInternal) -> Bool in
                 return !isSyncingInternal && isReachable && (hasPendingChanges || isSyncScheduled)
-            }.filter { (shouldSync) -> Bool in
+            }
+            .filter { (shouldSync) -> Bool in
                 return shouldSync
-            }.throttle(3, scheduler: syncScheduler).observeOn(syncScheduler).subscribe(onNext: { [weak self] (_) in
+            }
+            .throttle(3, scheduler: syncScheduler).observeOn(syncScheduler).subscribe(onNext: { [weak self] (_) in
                 self?.runSynchronizationFlow()
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public
@@ -239,6 +244,7 @@ public class Syncer <T : Syncable> : SyncerProtocol {
 
     private var timerDisposeBag : DisposeBag?
     public func startRefreshTimer(period : RxTimeInterval = 30) {
+        Logger.log("Refresh timer for \(self) has been started")
         timerDisposeBag = DisposeBag()
         if let timerDisposeBag = timerDisposeBag  {
             Observable<Int64>
@@ -250,6 +256,7 @@ public class Syncer <T : Syncable> : SyncerProtocol {
     }
 
     public func stopRefreshTimer() {
+        Logger.log("Refresh timer for \(self) has been stopped")
         timerDisposeBag = nil
     }
 }

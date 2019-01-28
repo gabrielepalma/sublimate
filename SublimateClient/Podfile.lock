@@ -41,6 +41,7 @@ PODS:
     - ReachabilitySwift
     - RealmSwift
     - RxCocoa
+    - RxReachability
     - RxRealm
     - RxSwift
     - Swinject
@@ -111,7 +112,7 @@ SPEC CHECKSUMS:
   RxRealm: 5379eddd74f8d617ca7681d1f8d144af25b432b0
   RxRealmDataSources: 89b61c0d3edf7769da2a6bf4dcf317bc713394db
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
-  SublimateSync: 753517c6c2554b7c721bb4f7f2ff7a7992f895b7
+  SublimateSync: 3f553e4a9bf0c27f3bc7e3d1ffeec13a58fb30ea
   SublimateUI: 8e456d9e332fe92494fe1b9e7cfb13498ed76e1c
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
