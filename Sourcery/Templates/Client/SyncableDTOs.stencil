@@ -14,6 +14,8 @@ final class {{ type.name }}SyncableDTO: SyncableDTO<{{ type.name }}Object>, Coda
         self.dto.{{ variable.name }} = object.{{ variable.name }}
         {% endfor %}
         self.dto.id = object.remoteId
+        self.dto.remoteCreated = nil
+        self.dto.clientCreated = object.clientCreated
         super.init(from: object)
     }
     override func syncIdentifier() -> String? {
@@ -23,6 +25,12 @@ final class {{ type.name }}SyncableDTO: SyncableDTO<{{ type.name }}Object>, Coda
     override func update(object: {{ type.name }}Object) {
         assert(object.remoteId == nil || self.dto.id == object.remoteId, "Updating an Object from a non-matching DTO")
         object.remoteId = self.dto.id
+        if let remoteCreated = self.dto.remoteCreated {
+            object.remoteCreated = remoteCreated
+        }
+        if let clientCreated = self.dto.clientCreated {
+            object.clientCreated = clientCreated
+        }
         {% for variable in type.storedVariables %}
         object.{{ variable.name }} = self.dto.{{ variable.name }}
         {% endfor %}

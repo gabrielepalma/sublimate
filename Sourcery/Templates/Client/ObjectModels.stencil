@@ -44,6 +44,7 @@ final class {{ type.name }}Object: Object, Syncable {
     @objc dynamic var clientCreated: TimeInterval = Date().timeIntervalSince1970
     @objc dynamic var clientLastUpdated: TimeInterval = Date().timeIntervalSince1970
     @objc dynamic var remoteId: String? = nil
+    @objc dynamic var remoteCreated: Double = Date().timeIntervalSince1970
     @objc dynamic var localId: String = UUID().uuidString
     @objc private dynamic var realmSyncOperation : String = SyncOperation.none.rawValue
 
@@ -59,6 +60,10 @@ final class {{ type.name }}Object: Object, Syncable {
 
     var clientCreatedDate : Date {
         return Date(timeIntervalSince1970: clientCreated)
+    }
+
+    var remoteCreatedDate : Date {
+        return Date(timeIntervalSince1970: remoteCreated)
     }
 
     var clientLastUpdatedDate : Date {

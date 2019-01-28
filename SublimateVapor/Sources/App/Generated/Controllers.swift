@@ -9,56 +9,56 @@ import Authentication
 
 public func configureSublimateRoutes(plain : Router, resourceGroup: Router) {
 
-    let peopleController = PeopleController()
-    plain.get("people", use: peopleController.list)
-    plain.post("people", use: peopleController.create)
-    plain.delete("people", People.parameter, use: peopleController.delete)
+    let demoPrivateController = DemoPrivateController()
+    resourceGroup.get("demoPrivate", use: demoPrivateController.list)
+    resourceGroup.post("demoPrivate", use: demoPrivateController.create)
+    resourceGroup.delete("demoPrivate", DemoPrivate.parameter, use: demoPrivateController.delete)
 
-    let speechesController = SpeechesController()
-    resourceGroup.get("speeches", use: speechesController.list)
-    resourceGroup.post("speeches", use: speechesController.create)
-    resourceGroup.delete("speeches", Speeches.parameter, use: speechesController.delete)
+    let demoPublicController = DemoPublicController()
+    plain.get("demoPublic", use: demoPublicController.list)
+    plain.post("demoPublic", use: demoPublicController.create)
+    plain.delete("demoPublic", DemoPublic.parameter, use: demoPublicController.delete)
 
 }
 
-class PeopleController {
+class DemoPrivateController {
 
     /// Returns the list
-    func list(_ req: Request) throws -> Future<[People]> {
+    func list(_ req: Request) throws -> Future<[DemoPrivate]> {
+        let user = try req.requireAuthenticated(PublicUser.self)
 
-        return People.query(on: req).all()
+        return DemoPrivate.query(on: req).filter(\DemoPrivate.owner == user.userId).all()
     }
 
     /// Creation API
-    func create(_ req: Request) throws -> Future<People> {
-        return try req.content.decode(People.self).flatMap { people in
-            return people.save(on: req)
-        }
-    }
-
-    /// Deletion API
-    func delete(_ req: Request) throws -> Future<HTTPStatus> {
-        return try req.parameters.next(People.self).flatMap { people in
-            return people.delete(on: req)
-        }.transform(to: .ok)
-    }
-}
-class SpeechesController {
-
-    /// Returns the list
-    func list(_ req: Request) throws -> Future<[Speeches]> {
+    func create(_ req: Request) throws -> Future<DemoPrivate> {
         let user = try req.requireAuthenticated(PublicUser.self)
-
-        return Speeches.query(on: req).filter(\Speeches.owner == user.userId).all()
-    }
-
-    /// Creation API
-    func create(_ req: Request) throws -> Future<Speeches> {
-        let user = try req.requireAuthenticated(PublicUser.self)
-        return try req.content.decode(Speeches.self).flatMap { speeches in
-            speeches.owner = user.userId
-            return speeches.save(on: req)
-        }
+        return try req.content.decode(DemoPrivate.self)
+            .map ({ item -> DemoPrivate in
+                item.owner = user.userId
+                item.remoteCreated = Date().timeIntervalSince1970
+                return item
+            })
+            .flatMap({ decoded -> Future<DemoPrivate> in
+                guard let id = decoded.id else {
+                    return req.future(decoded)
+                }
+                return DemoPrivate.find(id, on: req)
+                    .flatMap({ found -> Future<DemoPrivate> in
+                        guard let found = found else {
+                            return req.future(error: Abort(HTTPResponseStatus.notFound))
+                        }
+                        guard found.owner == user.userId else {
+                            return req.future(error: Abort(HTTPResponseStatus.unauthorized))
+                        }
+                        decoded.remoteCreated = found.remoteCreated
+                        decoded.clientCreated = found.clientCreated
+                        return req.future(decoded)
+                    })
+            })
+            .then({ toBeSaved -> Future<DemoPrivate> in
+                return toBeSaved.save(on: req)
+            })
     }
 
     /// Deletion API
@@ -68,7 +68,7 @@ class SpeechesController {
 
         let promise = req.eventLoop.newPromise(of: HTTPStatus.self)
         DispatchQueue.global().async {
-            guard let param = try? req.parameters.next(Speeches.self).wait() else {
+            guard let param = try? req.parameters.next(DemoPrivate.self).wait() else {
                 promise.fail(error:Abort(HTTPResponseStatus.internalServerError))
                 return
             }
@@ -77,11 +77,52 @@ class SpeechesController {
                 return
             }
             let uuid = UUID(objId)
-            if let fetch = try? Speeches.query(on: req).filter(\Speeches.id == uuid).first().wait(), let object = fetch, object.owner == user.userId  {
+            if let fetch = try? DemoPrivate.query(on: req).filter(\DemoPrivate.id == uuid).first().wait(), let object = fetch, object.owner == user.userId  {
                 try? object.delete(on: req).wait()
             }
             promise.succeed(result: .ok)
         }
         return promise.futureResult
+    }
+}
+class DemoPublicController {
+
+    /// Returns the list
+    func list(_ req: Request) throws -> Future<[DemoPublic]> {
+
+        return DemoPublic.query(on: req).all()
+    }
+
+    /// Creation API
+    func create(_ req: Request) throws -> Future<DemoPublic> {
+        return try req.content.decode(DemoPublic.self)
+            .map ({ item -> DemoPublic in
+                item.remoteCreated = Date().timeIntervalSince1970
+                return item
+            })
+            .flatMap({ decoded -> Future<DemoPublic> in
+                guard let id = decoded.id else {
+                    return req.future(decoded)
+                }
+                return DemoPublic.find(id, on: req)
+                    .flatMap({ found -> Future<DemoPublic> in
+                        guard let found = found else {
+                            return req.future(error: Abort(HTTPResponseStatus.notFound))
+                        }
+                        decoded.remoteCreated = found.remoteCreated
+                        decoded.clientCreated = found.clientCreated
+                        return req.future(decoded)
+                    })
+            })
+            .then({ toBeSaved -> Future<DemoPublic> in
+                return toBeSaved.save(on: req)
+            })
+    }
+
+    /// Deletion API
+    func delete(_ req: Request) throws -> Future<HTTPStatus> {
+        return try req.parameters.next(DemoPublic.self).flatMap { demoPublic in
+            return demoPublic.delete(on: req)
+        }.transform(to: .ok)
     }
 }

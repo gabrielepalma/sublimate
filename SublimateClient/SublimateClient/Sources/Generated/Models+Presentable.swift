@@ -7,43 +7,7 @@ import UIKit
 import RxSwift
 import SublimateUI
 
-extension PeopleObject : OverviewPresentable {
-    var presentationId: String? {
-        return remoteId
-    }
-
-    var presentationTitle: String? {
-        return name
-    }
-
-    var presentationThumbnail: Observable<UIImage?> {
-        return Observable.just(nil)
-    }
-}
-
-extension PeopleObject : DetailPresentable {
-    var presentationKeyPaths : [(String, PartialKeyPath<PeopleObject>)] {
-        return [
-            ("name", \PeopleObject.name), 
-            ("surname", \PeopleObject.surname), 
-            ("email", \PeopleObject.email), 
-            ("age", \PeopleObject.age), 
-            ("weight", \PeopleObject.weight)
-        ]
-    }
-
-    var metadataKeyPaths : [(String, PartialKeyPath<PeopleObject>)] {
-        return [
-            ("localId", \PeopleObject.localId),
-            ("remoteId", \PeopleObject.remoteId),
-            ("clientCreated", \PeopleObject.clientCreatedDate),
-            ("clientLastUpdated", \PeopleObject.clientLastUpdatedDate),
-            ("syncOperation", \PeopleObject.syncOperation)
-        ]
-    }
-}
-
-extension SpeechesObject : OverviewPresentable {
+extension DemoPrivateObject : OverviewPresentable {
     var presentationId: String? {
         return remoteId
     }
@@ -57,23 +21,61 @@ extension SpeechesObject : OverviewPresentable {
     }
 }
 
-extension SpeechesObject : DetailPresentable {
-    var presentationKeyPaths : [(String, PartialKeyPath<SpeechesObject>)] {
+extension DemoPrivateObject : DetailPresentable {
+    var presentationKeyPaths : [(String, PartialKeyPath<DemoPrivateObject>)] {
         return [
-            ("title", \SpeechesObject.title), 
-            ("content", \SpeechesObject.content), 
-            ("duration", \SpeechesObject.duration), 
-            ("grade", \SpeechesObject.grade)
+            ("title", \DemoPrivateObject.title), 
+            ("content", \DemoPrivateObject.content), 
+            ("duration", \DemoPrivateObject.duration), 
+            ("grade", \DemoPrivateObject.grade)
         ]
     }
 
-    var metadataKeyPaths : [(String, PartialKeyPath<SpeechesObject>)] {
+    var metadataKeyPaths : [(String, PartialKeyPath<DemoPrivateObject>)] {
         return [
-            ("localId", \SpeechesObject.localId),
-            ("remoteId", \SpeechesObject.remoteId),
-            ("clientCreated", \SpeechesObject.clientCreatedDate),
-            ("clientLastUpdated", \SpeechesObject.clientLastUpdatedDate),
-            ("syncOperation", \SpeechesObject.syncOperation)
+            ("localId", \DemoPrivateObject.localId),
+            ("remoteId", \DemoPrivateObject.remoteId),
+            ("remoteCreated", \DemoPrivateObject.remoteCreatedDate),
+            ("clientCreated", \DemoPrivateObject.clientCreatedDate),
+            ("clientLastUpdated", \DemoPrivateObject.clientLastUpdatedDate),
+            ("syncOperation", \DemoPrivateObject.syncOperation)
+        ]
+    }
+}
+
+extension DemoPublicObject : OverviewPresentable {
+    var presentationId: String? {
+        return remoteId
+    }
+
+    var presentationTitle: String? {
+        return name
+    }
+
+    var presentationThumbnail: Observable<UIImage?> {
+        return Observable.just(nil)
+    }
+}
+
+extension DemoPublicObject : DetailPresentable {
+    var presentationKeyPaths : [(String, PartialKeyPath<DemoPublicObject>)] {
+        return [
+            ("name", \DemoPublicObject.name), 
+            ("surname", \DemoPublicObject.surname), 
+            ("email", \DemoPublicObject.email), 
+            ("age", \DemoPublicObject.age), 
+            ("weight", \DemoPublicObject.weight)
+        ]
+    }
+
+    var metadataKeyPaths : [(String, PartialKeyPath<DemoPublicObject>)] {
+        return [
+            ("localId", \DemoPublicObject.localId),
+            ("remoteId", \DemoPublicObject.remoteId),
+            ("remoteCreated", \DemoPublicObject.remoteCreatedDate),
+            ("clientCreated", \DemoPublicObject.clientCreatedDate),
+            ("clientLastUpdated", \DemoPublicObject.clientLastUpdatedDate),
+            ("syncOperation", \DemoPublicObject.syncOperation)
         ]
     }
 }
@@ -84,21 +86,21 @@ func sublimateTableSources() -> [TableSource] {
     var temp : TableSource
 
     temp = TableSource()
-    temp.availability = .openAccess
-    temp.description = "People"
+    temp.availability = .onlyAuthenthicated
+    temp.description = "DemoPrivate"
     temp.viewController = {
-        let vc = ObjectsTableViewController<PeopleObject>()
-        vc.syncer = DI.peopleSyncer
+        let vc = ObjectsTableViewController<DemoPrivateObject>()
+        vc.syncer = DI.demoPrivateSyncer
         vc.realmConfiguration = DI.realmConfiguration
         return vc
     }
     sources.append(temp)
     temp = TableSource()
-    temp.availability = .onlyAuthenthicated
-    temp.description = "Speeches"
+    temp.availability = .openAccess
+    temp.description = "DemoPublic"
     temp.viewController = {
-        let vc = ObjectsTableViewController<SpeechesObject>()
-        vc.syncer = DI.speechesSyncer
+        let vc = ObjectsTableViewController<DemoPublicObject>()
+        vc.syncer = DI.demoPublicSyncer
         vc.realmConfiguration = DI.realmConfiguration
         return vc
     }

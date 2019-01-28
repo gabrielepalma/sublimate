@@ -37,6 +37,7 @@ extension {{ type.name }}Object : DetailPresentable {
         return [
             ("localId", \{{ type.name }}Object.localId),
             ("remoteId", \{{ type.name }}Object.remoteId),
+            ("remoteCreated", \{{ type.name }}Object.remoteCreatedDate),
             ("clientCreated", \{{ type.name }}Object.clientCreatedDate),
             ("clientLastUpdated", \{{ type.name }}Object.clientLastUpdatedDate),
             ("syncOperation", \{{ type.name }}Object.syncOperation)

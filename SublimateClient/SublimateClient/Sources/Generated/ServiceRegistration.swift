@@ -12,56 +12,56 @@ import SublimateSync
 
 func registerObjectSyncers(container : Container) {
 
-    container.register(NetworkClient<PeopleObject>.self, factory: { (r) -> NetworkClient<PeopleObject> in
-        return PeopleNetworkClient(networkManager: r.resolve(NetworkManagerProtocol.self)!)
+    container.register(NetworkClient<DemoPrivateObject>.self, factory: { (r) -> NetworkClient<DemoPrivateObject> in
+        return DemoPrivateNetworkClient(networkManager: r.resolve(NetworkManagerProtocol.self)!)
     }).inObjectScope(.weak)
 
-    container.register(Syncer<PeopleObject>.self) { (r) -> Syncer<PeopleObject> in
-        return Syncer<PeopleObject>(networkClient: r.resolve(NetworkClient<PeopleObject>.self)!, realmConfiguration: r.resolve(Realm.Configuration.self)!, reachability: r.resolve(Reachability.self)!)
+    container.register(Syncer<DemoPrivateObject>.self) { (r) -> Syncer<DemoPrivateObject> in
+        return Syncer<DemoPrivateObject>(networkClient: r.resolve(NetworkClient<DemoPrivateObject>.self)!, realmConfiguration: r.resolve(Realm.Configuration.self)!, reachability: r.resolve(Reachability.self)!)
     }.inObjectScope(.weak)
 
-    container.register(NetworkClient<SpeechesObject>.self, factory: { (r) -> NetworkClient<SpeechesObject> in
-        return SpeechesNetworkClient(networkManager: r.resolve(NetworkManagerProtocol.self)!)
+    container.register(NetworkClient<DemoPublicObject>.self, factory: { (r) -> NetworkClient<DemoPublicObject> in
+        return DemoPublicNetworkClient(networkManager: r.resolve(NetworkManagerProtocol.self)!)
     }).inObjectScope(.weak)
 
-    container.register(Syncer<SpeechesObject>.self) { (r) -> Syncer<SpeechesObject> in
-        return Syncer<SpeechesObject>(networkClient: r.resolve(NetworkClient<SpeechesObject>.self)!, realmConfiguration: r.resolve(Realm.Configuration.self)!, reachability: r.resolve(Reachability.self)!)
+    container.register(Syncer<DemoPublicObject>.self) { (r) -> Syncer<DemoPublicObject> in
+        return Syncer<DemoPublicObject>(networkClient: r.resolve(NetworkClient<DemoPublicObject>.self)!, realmConfiguration: r.resolve(Realm.Configuration.self)!, reachability: r.resolve(Reachability.self)!)
     }.inObjectScope(.weak)
 
 }
 
 func sublimateObjectTypes() -> [Object.Type]? {
     return [
-        PeopleObject.self, 
-        SpeechesObject.self
+        DemoPrivateObject.self, 
+        DemoPublicObject.self
     ]
 }
 
 func sublimatePrivateObjectTypes() -> [Object.Type]? {
     return [
-        SpeechesObject.self
+        DemoPrivateObject.self
     ]
 }
 
 extension DI {
-    static var peopleNetworkClient : NetworkClient<PeopleObject>? {
+    static var demoPrivateNetworkClient : NetworkClient<DemoPrivateObject>? {
         get {
-            return box.resolve(NetworkClient<PeopleObject>.self)
+            return box.resolve(NetworkClient<DemoPrivateObject>.self)
         }
     }
-    static var peopleSyncer : Syncer<PeopleObject>? {
+    static var demoPrivateSyncer : Syncer<DemoPrivateObject>? {
         get {
-            return box.resolve(Syncer<PeopleObject>.self)
+            return box.resolve(Syncer<DemoPrivateObject>.self)
         }
     }
-    static var speechesNetworkClient : NetworkClient<SpeechesObject>? {
+    static var demoPublicNetworkClient : NetworkClient<DemoPublicObject>? {
         get {
-            return box.resolve(NetworkClient<SpeechesObject>.self)
+            return box.resolve(NetworkClient<DemoPublicObject>.self)
         }
     }
-    static var speechesSyncer : Syncer<SpeechesObject>? {
+    static var demoPublicSyncer : Syncer<DemoPublicObject>? {
         get {
-            return box.resolve(Syncer<SpeechesObject>.self)
+            return box.resolve(Syncer<DemoPublicObject>.self)
         }
     }
 }

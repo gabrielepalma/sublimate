@@ -6,20 +6,24 @@
 import UIKit
 import SublimateSync
 
-// MARK: - People network dto
-final class PeopleDTO: Codable {
+// MARK: - DemoPrivate network dto
+final class DemoPrivateDTO: Codable {
     var id : String?
+    var remoteCreated : Double?
+    var clientCreated : Double?
+    var title: String = String.sublimateDefault()
+    var content: String = String.sublimateDefault()
+    var duration: Int = Int.sublimateDefault()
+    var grade: Double = Double.sublimateDefault()
+}
+// MARK: - DemoPublic network dto
+final class DemoPublicDTO: Codable {
+    var id : String?
+    var remoteCreated : Double?
+    var clientCreated : Double?
     var name: String = String.sublimateDefault()
     var surname: String = String.sublimateDefault()
     var email: String = String.sublimateDefault()
     var age: Int = Int.sublimateDefault()
     var weight: Double = Double.sublimateDefault()
-}
-// MARK: - Speeches network dto
-final class SpeechesDTO: Codable {
-    var id : String?
-    var title: String = String.sublimateDefault()
-    var content: String = String.sublimateDefault()
-    var duration: Int = Int.sublimateDefault()
-    var grade: Double = Double.sublimateDefault()
 }

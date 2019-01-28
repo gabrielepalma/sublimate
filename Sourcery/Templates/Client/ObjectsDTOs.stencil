@@ -8,6 +8,8 @@ import SublimateSync
 // MARK: - {{ type.name }} network dto
 final class {{ type.name }}DTO: Codable {
     var id : String?
+    var remoteCreated : Double?
+    var clientCreated : Double?
     {% for variable in type.storedVariables %}
     var {{ variable.name }}: {{ variable.typeName }} = {{ variable.typeName }}.sublimateDefault()
     {% endfor %}

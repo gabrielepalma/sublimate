@@ -33,12 +33,36 @@ class {{ type.name }}Controller {
         {% if type.implements.OwnedFrozenModel %}
         let user = try req.requireAuthenticated(PublicUser.self)
         {% endif %}
-        return try req.content.decode({{ type.name }}.self).flatMap { {{ type.name|lowerFirstLetter }} in
-            {% if type.implements.OwnedFrozenModel %}
-            {{ type.name|lowerFirstLetter }}.owner = user.userId
-            {% endif %}
-            return {{ type.name|lowerFirstLetter }}.save(on: req)
-        }
+        return try req.content.decode({{ type.name }}.self)
+            .map ({ item -> {{ type.name }} in
+                {% if type.implements.OwnedFrozenModel %}
+                item.owner = user.userId
+                {% endif %}
+                item.remoteCreated = Date().timeIntervalSince1970
+                return item
+            })
+            .flatMap({ decoded -> Future<{{ type.name }}> in
+                guard let id = decoded.id else {
+                    return req.future(decoded)
+                }
+                return {{ type.name }}.find(id, on: req)
+                    .flatMap({ found -> Future<{{ type.name }}> in
+                        guard let found = found else {
+                            return req.future(error: Abort(HTTPResponseStatus.notFound))
+                        }
+                        {% if type.implements.OwnedFrozenModel %}
+                        guard found.owner == user.userId else {
+                            return req.future(error: Abort(HTTPResponseStatus.unauthorized))
+                        }
+                        {% endif %}
+                        decoded.remoteCreated = found.remoteCreated
+                        decoded.clientCreated = found.clientCreated
+                        return req.future(decoded)
+                    })
+            })
+            .then({ toBeSaved -> Future<{{ type.name }}> in
+                return toBeSaved.save(on: req)
+            })
     }
 
     /// Deletion API

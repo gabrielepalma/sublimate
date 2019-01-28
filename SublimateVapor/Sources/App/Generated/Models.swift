@@ -7,44 +7,24 @@ import FluentSQLite
 import Vapor
 
 public func configureSublimateMigration(migrations : inout MigrationConfig) {
-    migrations.add(model: People.self, database: .sqlite)
-    migrations.add(model: Speeches.self, database: .sqlite)
+    migrations.add(model: DemoPrivate.self, database: .sqlite)
+    migrations.add(model: DemoPublic.self, database: .sqlite)
 }
 
-// MARK: - People definition
-final class People : SQLiteUUIDModel {
+// MARK: - DemoPrivate definition
+final class DemoPrivate : SQLiteUUIDModel {
     var id: UUID?
-    var name: String
-    var surname: String
-    var email: String
-    var age: Int
-    var weight: Double
-
-    init(id: UUID? = nil  , name : String , surname : String , email : String , age : Int , weight : Double ) {
-        self.id = id
-        self.name = name
-        self.surname = surname
-        self.email = email
-        self.age = age
-        self.weight = weight
-    }
-}
-
-extension People: Migration { }
-extension People: Content   { }
-extension People: Parameter { }
-
-// MARK: - Speeches definition
-final class Speeches : SQLiteUUIDModel {
-    var id: UUID?
+    var remoteCreated: Double?
+    var clientCreated: Double
     var owner: String?
     var title: String
     var content: String
     var duration: Int
     var grade: Double
 
-    init(id: UUID? = nil , owner : String? = nil  , title : String , content : String , duration : Int , grade : Double ) {
+init(id: UUID? = nil, clientCreated: Double, owner : String? = nil  , title : String , content : String , duration : Int , grade : Double ) {
         self.id = id
+        self.clientCreated = clientCreated
         self.owner = owner
         self.title = title
         self.content = content
@@ -53,6 +33,32 @@ final class Speeches : SQLiteUUIDModel {
     }
 }
 
-extension Speeches: Migration { }
-extension Speeches: Content   { }
-extension Speeches: Parameter { }
+extension DemoPrivate: Migration { }
+extension DemoPrivate: Content   { }
+extension DemoPrivate: Parameter { }
+
+// MARK: - DemoPublic definition
+final class DemoPublic : SQLiteUUIDModel {
+    var id: UUID?
+    var remoteCreated: Double?
+    var clientCreated: Double
+    var name: String
+    var surname: String
+    var email: String
+    var age: Int
+    var weight: Double
+
+init(id: UUID? = nil, clientCreated: Double , name : String , surname : String , email : String , age : Int , weight : Double ) {
+        self.id = id
+        self.clientCreated = clientCreated
+        self.name = name
+        self.surname = surname
+        self.email = email
+        self.age = age
+        self.weight = weight
+    }
+}
+
+extension DemoPublic: Migration { }
+extension DemoPublic: Content   { }
+extension DemoPublic: Parameter { }
