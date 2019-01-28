@@ -30,7 +30,7 @@ final class UserController {
                 guard let uuid = createdUser.id?.uuidString else {
                     throw Abort(HTTPResponseStatus.internalServerError)
                 }
-                let publicUser = PublicUser(userId: uuid)
+                let publicUser = PublicUser(userId: uuid, isAdmin: newUser.isAdmin)
                 return publicUser
             }
         }
@@ -105,7 +105,7 @@ final class UserController {
                     return
             }
             try? RefreshToken.query(on: request).filter(\RefreshToken.refreshToken == givenToken.payload.tokenId.value).delete().wait()
-            promise.succeed(result: PublicUser(userId: userId.uuidString))
+            promise.succeed(result: PublicUser(userId: userId.uuidString, isAdmin: user.isAdmin))
         }
         return promise.futureResult
     }

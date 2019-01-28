@@ -46,37 +46,12 @@ extension User : SublimateRefreshJwtAuthenticatable {
         }
         return promise.futureResult
     }
-
-//        // We look in the DB for a RefreshToken that has the same token ID specified in the token payload
-//        // We will also return the User associated to that RefreshToken
-//        return RefreshToken.query(on: connection).filter(\RefreshToken.refreshToken == refreshJwt.tokenId.value).first()
-//
-//            .thenThrowing({ refresh -> User? in
-//                // A RefreshToken with that token ID was found in the DB for a given User
-//                guard let refresh = refresh  else {
-//                    return nil
-//                }
-//                return User.query(on: connection).filter(\User.id == refresh.userId).first()
-//            }).map({ result -> User? in
-//                // A RefreshToken with that token ID was found in the DB for a given User
-//                guard let user = result else {
-//                    return nil
-//                }
-//
-//                // The User associated to that RefreshToken is the same specified in the payload
-//                guard user.id?.uuidString == refreshJwt.userId else {
-//                    return nil
-//                }
-//
-//                return user
-//            })
-//        }
 }
 
 extension PublicUser : SublimateBearerAuthenticatable {
     static func authenticate(bearerJwt:  SublimateJwt.Payload, eventLoop: EventLoop) -> EventLoopFuture<PublicUser?> {
         // The Middleware already validated the JWT, nothing else to be done here
-        return eventLoop.future(PublicUser(userId: bearerJwt.userId))
+        return eventLoop.future(PublicUser(userId: bearerJwt.userId, isAdmin: bearerJwt.isAdmin))
     }
 }
 
@@ -84,6 +59,9 @@ final class User: SQLiteUUIDModel {
 
     // Primary key
     var id: UUID?
+
+    // User is admin
+    var isAdmin = false
 
     // TODO: How to specificy SQLite that this field is a unique index despise not a primary key?
     var username: String
@@ -100,6 +78,7 @@ final class User: SQLiteUUIDModel {
 // Response after new registration or logout; authorized object for resource routes
 struct PublicUser: Content {
     var userId: String
+    var isAdmin: Bool
 }
 
 // Request for user creation
@@ -124,9 +103,16 @@ extension User: Content   { }
 extension User: Parameter { }
 extension User: Migration {
     static func prepare(on connection: SQLiteConnection) -> Future<Void> {
-        return Database.create(self, on: connection) { builder in
-            try addProperties(to: builder)
-            builder.unique(on: \.username)
-        }
+        return Database
+            .create(self, on: connection) { builder in
+                try addProperties(to: builder)
+                builder.unique(on: \.username)
+            }
+            .then({ _ -> Future<User> in
+                let user = User(username: "admin", password: try! BCrypt.hash("admin"))
+                user.isAdmin = true
+                return user.save(on: connection)
+            })
+            .transform(to: ())
     }
 }
