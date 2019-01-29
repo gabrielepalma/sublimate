@@ -105,8 +105,17 @@ public class Syncer <T : Syncable> : SyncerProtocol {
             return Promise(error: NSError(domain: "sublimate.syncer", code: 900, userInfo: ["reason" : "Unable to sync object without a key"]))
         }
 
-        return firstly(execute:{ () -> Promise<SyncableDTO<T>?> in
-                networkClient.syncOrDelete(item: item)
+        return networkClient.syncOrDelete(item: item)
+            .tap({ result in
+                if  case Result.rejected(_) = result,
+                    let realm = try? Realm(configuration: self.realmConfiguration),
+                    var object = realm.object(ofType: T.self, forPrimaryKey: itemKey)
+                {
+                    try? realm.write
+                    {
+                        object.isInErrorState = true
+                    }
+                }
             })
             .then(on: syncQueue) { (dto) -> Promise<Void> in
                 do {

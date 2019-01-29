@@ -40,7 +40,8 @@ extension {{ type.name }}Object : DetailPresentable {
             ("remoteCreated", \{{ type.name }}Object.remoteCreatedDate),
             ("clientCreated", \{{ type.name }}Object.clientCreatedDate),
             ("clientLastUpdated", \{{ type.name }}Object.clientLastUpdatedDate),
-            ("syncOperation", \{{ type.name }}Object.syncOperation)
+            ("syncOperation", \{{ type.name }}Object.syncOperation),
+            ("inInErrorState", \{{ type.name }}Object.isInErrorState)
         ]
     }
 }

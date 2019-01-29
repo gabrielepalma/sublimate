@@ -51,7 +51,50 @@ class FieldsTableViewController<T: SublimateUICompatible>: UITableViewController
         }).disposed(by: disposeBag)
     }
 
-    @objc func editWasTapped() {
+    func editErrorObject() {
+        let panel : ActionPanelViewController = UIStoryboard.instantiate(storyboard: "ActionPanel")
+        panel.cancelButtonCallBack = { [weak panel] in
+            panel?.dismiss(animated: true, completion: nil)
+        }
+        panel.randomButton.setTitle("Retry", for: .normal)
+        panel.randomButtonCallBack = { [weak self, weak panel] in
+            guard let self = self else {
+                panel?.dismiss(animated: true, completion: nil)
+                return
+            }
+            guard var model = self.model, !model.isInvalidated else {
+                self.modelWasInvalidated()
+                return
+            }
+            if let realmConfiguration = self.realmConfiguration, let realm = try? Realm(configuration: realmConfiguration){
+                try? realm.write {
+                    model.isInErrorState = false
+                }
+            }
+            panel?.dismiss(animated: true, completion: nil)
+        }
+        panel.deleteButton.setTitle("Remove", for: .normal)
+        panel.deleteButtonCallBack = { [weak self, weak panel] in
+            guard let self = self else {
+                panel?.dismiss(animated: true, completion: nil)
+                return
+            }
+            guard let model = self.model, !model.isInvalidated else {
+                self.modelWasInvalidated()
+                return
+            }
+            if let realmConfiguration = self.realmConfiguration, let realm = try? Realm(configuration: realmConfiguration){
+                try? realm.write {
+                    realm.delete(model)
+                }
+            }
+            panel?.dismiss(animated: true, completion: nil)
+        }
+        let segue = ActionPanelSegue(identifier: "actionPanelSegue", source: self, destination: panel)
+        segue.perform()
+    }
+
+    func editRegularObject() {
         let panel : ActionPanelViewController = UIStoryboard.instantiate(storyboard: "ActionPanel")
         panel.cancelButtonCallBack = { [weak panel] in
             panel?.dismiss(animated: true, completion: nil)
@@ -99,6 +142,19 @@ class FieldsTableViewController<T: SublimateUICompatible>: UITableViewController
         }
         let segue = ActionPanelSegue(identifier: "actionPanelSegue", source: self, destination: panel)
         segue.perform()
+    }
+
+    @objc func editWasTapped() {
+        guard var model = self.model, !model.isInvalidated else {
+            self.modelWasInvalidated()
+            return
+        }
+        if model.isInErrorState {
+            editErrorObject()
+        }
+        else {
+            editRegularObject()
+        }
     }
 
     // MARK: - Table view data source

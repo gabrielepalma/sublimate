@@ -32,14 +32,13 @@ public class ObjectsTableViewController<T : SublimateUICompatible>: UITableViewC
             cell.identifierLabel?.text = object.presentationId
             cell.titleLabel?.text = object.presentationTitle
             switch object.syncOperation {
-            case .create:
-                cell.syncStatusLabel?.text = "CREATE"
-            case .delete:
-                cell.syncStatusLabel?.text = "DELETE"
-            case .update:
-                cell.syncStatusLabel?.text = "UPDATE"
             case .none:
                 cell.syncStatusLabel?.text = ""
+            default:
+                cell.syncStatusLabel?.text = object.syncOperation.rawValue
+            }
+            if object.isInErrorState {
+                cell.syncStatusLabel?.text = "ERROR"
             }
             cell.selectionStyle = .none
         }
