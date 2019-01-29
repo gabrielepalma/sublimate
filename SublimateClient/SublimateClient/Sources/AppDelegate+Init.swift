@@ -98,7 +98,7 @@ extension AppDelegate {
     }
 
     func registerForLogoutCleanUp() {
-        DI.authenticationManager?.authState.subscribe(onNext: { state in
+        DI.authenticationManager?.authState.distinctUntilChanged().subscribe(onNext: { state in
             if state == AuthState.loggedOut {
                 do {
                     if let realm = try? Realm(configuration: DI.box.resolve(Realm.Configuration.self, name: DI.RealmConfigurationPrivateOnly)!) {
