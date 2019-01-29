@@ -56,7 +56,7 @@ class FieldsTableViewController<T: SublimateUICompatible>: UITableViewController
         panel.cancelButtonCallBack = { [weak panel] in
             panel?.dismiss(animated: true, completion: nil)
         }
-        panel.randomButton.setTitle("Retry", for: .normal)
+        panel.randomButtonTitle = "Retry"
         panel.randomButtonCallBack = { [weak self, weak panel] in
             guard let self = self else {
                 panel?.dismiss(animated: true, completion: nil)
@@ -73,7 +73,7 @@ class FieldsTableViewController<T: SublimateUICompatible>: UITableViewController
             }
             panel?.dismiss(animated: true, completion: nil)
         }
-        panel.deleteButton.setTitle("Remove", for: .normal)
+        panel.deleteButtonTitle = "Remove"
         panel.deleteButtonCallBack = { [weak self, weak panel] in
             guard let self = self else {
                 panel?.dismiss(animated: true, completion: nil)

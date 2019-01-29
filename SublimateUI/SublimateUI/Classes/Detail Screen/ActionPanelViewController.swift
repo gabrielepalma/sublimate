@@ -22,26 +22,36 @@ class ActionPanelSegue: SwiftMessagesSegue {
 
 public class ActionPanelViewController: UIViewController {
 
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var randomButton: UIButton!
+    @IBOutlet private weak var cancelButton: UIButton!
+    @IBOutlet private weak var deleteButton: UIButton!
+    @IBOutlet private weak var randomButton: UIButton!
 
-    var cancelButtonCallBack: (() -> ())?
-    var deleteButtonCallBack: (() -> ())?
-    var randomButtonCallBack: (() -> ())?
+    public var deleteButtonTitle = "Delete"
+    public var randomButtonTitle = "Randomize"
+    public var cancelButtonTitle = "Cancel"
+
+    public var cancelButtonCallBack: (() -> ())?
+    public var deleteButtonCallBack: (() -> ())?
+    public var randomButtonCallBack: (() -> ())?
 
     override public func viewDidLoad() {
         super.viewDidLoad()
+        setupVisuals()
     }
 
     func setupVisuals() {
         cancelButton.backgroundColor = UIColor.black
         cancelButton.setTitleColor(UIColor.white, for: .normal)
+        cancelButton.setTitle(cancelButtonTitle, for: .normal)
+        cancelButton.layer.cornerRadius = 10.0
         deleteButton.backgroundColor = UIColor.red
         deleteButton.setTitleColor(UIColor.white, for: .normal)
+        deleteButton.setTitle(deleteButtonTitle, for: .normal)
+        deleteButton.layer.cornerRadius = 10.0
         randomButton.backgroundColor = UIColor.darkGray
         randomButton.setTitleColor(UIColor.white, for: .normal)
-
+        randomButton.setTitle(randomButtonTitle, for: .normal)
+        randomButton.layer.cornerRadius = 10.0
     }
 
     @IBAction func cancelButtonTapped() {
