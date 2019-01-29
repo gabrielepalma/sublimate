@@ -59,6 +59,11 @@ final class UserController {
                 // Delete, if existing, the refresh token that was replaced by the one used in this requet
                 // This is now safe as we have proof the new refresh token was successfully received by the client
                 try? RefreshToken.query(on: request).filter(\RefreshToken.issuedToReplace == givenToken.payload.tokenId.value).delete().wait()
+                let queried = try? RefreshToken.query(on: request).filter(\RefreshToken.refreshToken == givenToken.payload.tokenId.value).first().wait()
+                guard let fetched = queried, fetched != nil else {
+                    promise.fail(error: Abort(HTTPResponseStatus.unauthorized))
+                    return
+                }
 
                 // Check if given token is about to expire and we want to replace it
                 let timeToLive = givenToken.payload.exp.value.timeIntervalSince1970 - Date().timeIntervalSince1970
