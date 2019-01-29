@@ -171,8 +171,6 @@ public class Syncer <T : Syncable> : SyncerProtocol {
                 try realm.write {
                     for dto in dtos {
                         guard let syncIdentifier = dto.syncIdentifier() else {
-                            // The dto was malformed and is missing identifier
-                            // We skip the item (GP TODO: maybe add logging)
                             return
                         }
                         if let item = realm.object(ofType: T.self, forSynchronizationId:syncIdentifier) {
@@ -207,7 +205,7 @@ public class Syncer <T : Syncable> : SyncerProtocol {
     }
     
     private func subscribeSynchronization() {
-        // GP TODO: We need an exponential backoff when the synchronization is failing
+        // GPTODO: We need an exponential backoff when the synchronization is failing
         Observable
             .combineLatest(
                 hasPendingChanges.asObservable(),

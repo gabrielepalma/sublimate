@@ -68,7 +68,7 @@ class {{ type.name }}Controller {
     /// Deletion API
     func delete(_ req: Request) throws -> Future<HTTPStatus> {
         {% if type.implements.OwnedFrozenModel %}
-        // GP TODO: Rewrite this to be more functional
+        // GPTODO: Rewrite this to be more functional
         let user = try req.requireAuthenticated(PublicUser.self)
 
         let promise = req.eventLoop.newPromise(of: HTTPStatus.self)

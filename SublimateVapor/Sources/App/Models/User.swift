@@ -61,9 +61,8 @@ final class User: SQLiteUUIDModel {
     var id: UUID?
 
     // User is admin
+    // GPTODO: Admin status is not respected by mutation endpoints, needs to fix
     var isAdmin = false
-
-    // TODO: How to specificy SQLite that this field is a unique index despise not a primary key?
     var username: String
 
     // Hashed password

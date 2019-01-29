@@ -16,10 +16,7 @@ import SublimateSync
 
 class FieldsTableViewController<T: SublimateUICompatible>: UITableViewController {
     let reuseIdentifier = "FieldCell"
-
-    // GP TODO: Move this to a new view model
     private var disposeBag = DisposeBag()
-    
     var realmConfiguration : Realm.Configuration?
     var model : T?
 
