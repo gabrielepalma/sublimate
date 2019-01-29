@@ -14,14 +14,17 @@ public func configureSublimateMigration(migrations : inout MigrationConfig) {
 // MARK: - {{ type.name }} definition
 final class {{ type.name }} : SQLiteUUIDModel {
     var id: UUID?
+    var remoteCreated: Double?
+    var clientCreated: Double
     {% if type.implements.OwnedFrozenModel %}
     var owner: String?
     {% endif %}
     {% for variable in type.storedVariables %}var {{ variable.name }}: {{ variable.typeName }}
     {% endfor %}
 
-    init(id: UUID? = nil {% if type.implements.OwnedFrozenModel %}, owner : String? = nil {% endif %} {% for variable in type.storedVariables %}, {{ variable.name }} : {{ variable.typeName }} {% endfor %}) {
+init(id: UUID? = nil, clientCreated: Double{% if type.implements.OwnedFrozenModel %}, owner : String? = nil {% endif %} {% for variable in type.storedVariables %}, {{ variable.name }} : {{ variable.typeName }} {% endfor %}) {
         self.id = id
+        self.clientCreated = clientCreated
         {% if type.implements.OwnedFrozenModel %}
         self.owner = owner
         {% endif %}

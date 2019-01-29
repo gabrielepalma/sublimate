@@ -74,6 +74,7 @@ extension NetworkClient {
 public protocol Syncable where Self : Object {
     var syncIdentifier : String? { get }
     var syncOperation : SyncOperation { get set }
+    var isInErrorState : Bool { get set }
     var clientLastUpdated : TimeInterval { get set }
 
     static func pendingObjectsPredicate() -> NSPredicate

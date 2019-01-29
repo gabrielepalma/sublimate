@@ -13,7 +13,7 @@ extension User {
         if let id = self.id?.uuidString {
             let now = Date().timeIntervalSince1970
             let exp = Date().timeIntervalSince1970 + expiration
-            let payLoad =  SublimateJwt.Payload(userId: id, usage: usage, iat: now, exp: exp)
+            let payLoad =  SublimateJwt.Payload(userId: id, isAdmin: self.isAdmin, usage: usage, iat: now, exp: exp)
             let jwt = JWT(header: SublimateJwt.headers(kid: SublimateJwt.kids[0]), payload: payLoad)
             let data = try jwt.sign(using: SublimateJwt.signers)
             if let token = String(data: data, encoding: .utf8) {

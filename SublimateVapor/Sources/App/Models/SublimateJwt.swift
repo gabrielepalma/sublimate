@@ -41,6 +41,7 @@ struct SublimateJwt {
 
     struct Payload: JWTPayload {
         var userId: String
+        var isAdmin: Bool
         var tokenId: IDClaim
         var usage: String
         var iat: IssuedAtClaim
@@ -51,12 +52,13 @@ struct SublimateJwt {
             try exp.verifyNotExpired()
         }
 
-        init(userId: String, usage: String, iat: Double, exp: Double, tokenId: String = UUID().uuidString) {
+        init(userId: String, isAdmin: Bool, usage: String, iat: Double, exp: Double, tokenId: String = UUID().uuidString) {
             self.userId = userId
             self.usage = usage
             self.iat = IssuedAtClaim(value: Date(timeIntervalSince1970: iat))
             self.exp = ExpirationClaim(value: Date(timeIntervalSince1970: exp))
             self.tokenId = IDClaim(value: tokenId)
+            self.isAdmin = isAdmin
         }
     }
 

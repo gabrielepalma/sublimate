@@ -8,7 +8,7 @@
 //   \___/(__)   gabrielepalma.name
 //
 
-// GP TODO: We need to get rid of Variable, they are deprecated
+// GPTODO: We need to get rid of Variable, they are deprecated
 
 import Foundation
 import RxSwift

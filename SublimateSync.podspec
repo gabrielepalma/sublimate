@@ -39,6 +39,7 @@ Library to manage network data synchronization with a Offline first approach, ba
   s.dependency 'RxSwift'
   s.dependency 'RealmSwift'
   s.dependency 'RxRealm'
+  s.dependency 'RxReachability'
   s.dependency 'ReachabilitySwift'
   s.dependency 'Swinject'
 

@@ -1,7 +1,7 @@
 protocol FrozenModel {}
 protocol OwnedFrozenModel : FrozenModel {}
 
-class People : FrozenModel {
+class DemoPublic : FrozenModel {
     var name : String
     var surname : String
     var email : String
@@ -9,7 +9,7 @@ class People : FrozenModel {
     var weight : Double
 }
 
-class Speeches : OwnedFrozenModel {
+class DemoPrivate : OwnedFrozenModel {
     var title : String
     var content : String
     var duration : Int

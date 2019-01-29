@@ -34,7 +34,9 @@ final class {{ type.name }}Object: Object, Syncable {
     }
 
     static func pendingObjectsPredicate() -> NSPredicate {
-        return NSPredicate(format: "realmSyncOperation in %@", [SyncOperation.create.rawValue, SyncOperation.update.rawValue, SyncOperation.delete.rawValue])
+        let p1 = NSPredicate(format: "realmSyncOperation in %@", [SyncOperation.create.rawValue, SyncOperation.update.rawValue, SyncOperation.delete.rawValue])
+        let p2 = NSPredicate(format: "isInErrorState == false")
+        return NSCompoundPredicate(andPredicateWithSubpredicates: [p1, p2])
     }
 
     static func syncableObjectsPredicate(withSyncingOptions options: NSDictionary?) -> NSPredicate {
@@ -44,6 +46,8 @@ final class {{ type.name }}Object: Object, Syncable {
     @objc dynamic var clientCreated: TimeInterval = Date().timeIntervalSince1970
     @objc dynamic var clientLastUpdated: TimeInterval = Date().timeIntervalSince1970
     @objc dynamic var remoteId: String? = nil
+    @objc dynamic var isInErrorState: Bool = false
+    @objc dynamic var remoteCreated: Double = Date().timeIntervalSince1970
     @objc dynamic var localId: String = UUID().uuidString
     @objc private dynamic var realmSyncOperation : String = SyncOperation.none.rawValue
 
@@ -59,6 +63,10 @@ final class {{ type.name }}Object: Object, Syncable {
 
     var clientCreatedDate : Date {
         return Date(timeIntervalSince1970: clientCreated)
+    }
+
+    var remoteCreatedDate : Date {
+        return Date(timeIntervalSince1970: remoteCreated)
     }
 
     var clientLastUpdatedDate : Date {

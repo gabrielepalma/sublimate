@@ -14,6 +14,7 @@ import RealmSwift
 import PromiseKit
 import RxRealm
 import Reachability
+import RxReachability
 import RxCocoa
 
 public protocol SyncerProtocol {
@@ -29,9 +30,8 @@ public protocol SyncerProtocol {
 public class Syncer <T : Syncable> : SyncerProtocol {
     let realmConfiguration : Realm.Configuration
 
-    func isReachable() -> Observable<Bool> {
-        // GP TODO: Inject Reachability in the logic
-        return Observable<Bool>.just(true)
+    var isReachable: Observable<Bool> {
+        return reachability.rx.isReachable.startWith(reachability.connection != .none)
     }
 
     private let networkClient : NetworkClient<T>
@@ -105,8 +105,17 @@ public class Syncer <T : Syncable> : SyncerProtocol {
             return Promise(error: NSError(domain: "sublimate.syncer", code: 900, userInfo: ["reason" : "Unable to sync object without a key"]))
         }
 
-        return firstly(execute:{ () -> Promise<SyncableDTO<T>?> in
-                networkClient.syncOrDelete(item: item)
+        return networkClient.syncOrDelete(item: item)
+            .tap({ result in
+                if  case Result.rejected(_) = result,
+                    let realm = try? Realm(configuration: self.realmConfiguration),
+                    var object = realm.object(ofType: T.self, forPrimaryKey: itemKey)
+                {
+                    try? realm.write
+                    {
+                        object.isInErrorState = true
+                    }
+                }
             })
             .then(on: syncQueue) { (dto) -> Promise<Void> in
                 do {
@@ -162,8 +171,6 @@ public class Syncer <T : Syncable> : SyncerProtocol {
                 try realm.write {
                     for dto in dtos {
                         guard let syncIdentifier = dto.syncIdentifier() else {
-                            // The dto was malformed and is missing identifier
-                            // We skip the item (GP TODO: maybe add logging)
                             return
                         }
                         if let item = realm.object(ofType: T.self, forSynchronizationId:syncIdentifier) {
@@ -198,18 +205,23 @@ public class Syncer <T : Syncable> : SyncerProtocol {
     }
     
     private func subscribeSynchronization() {
-        // GP TODO: We need an exponential backoff when the synchronization is failing
-        Observable.combineLatest(
-            hasPendingChanges.asObservable(),
-            isSyncScheduled.asObservable(),
-            isReachable(),
-            isSyncingInternal.asObservable()).map { (hasPendingChanges, isSyncScheduled, isReachable, isSyncingInternal) -> Bool in
+        // GPTODO: We need an exponential backoff when the synchronization is failing
+        Observable
+            .combineLatest(
+                hasPendingChanges.asObservable(),
+                isSyncScheduled.asObservable(),
+                isReachable,
+                isSyncingInternal.asObservable())
+            .map { (hasPendingChanges, isSyncScheduled, isReachable, isSyncingInternal) -> Bool in
                 return !isSyncingInternal && isReachable && (hasPendingChanges || isSyncScheduled)
-            }.filter { (shouldSync) -> Bool in
+            }
+            .filter { (shouldSync) -> Bool in
                 return shouldSync
-            }.throttle(3, scheduler: syncScheduler).observeOn(syncScheduler).subscribe(onNext: { [weak self] (_) in
+            }
+            .throttle(3, scheduler: syncScheduler).observeOn(syncScheduler).subscribe(onNext: { [weak self] (_) in
                 self?.runSynchronizationFlow()
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Public
@@ -239,6 +251,7 @@ public class Syncer <T : Syncable> : SyncerProtocol {
 
     private var timerDisposeBag : DisposeBag?
     public func startRefreshTimer(period : RxTimeInterval = 30) {
+        Logger.log("Refresh timer for \(self) has been started")
         timerDisposeBag = DisposeBag()
         if let timerDisposeBag = timerDisposeBag  {
             Observable<Int64>
@@ -250,6 +263,7 @@ public class Syncer <T : Syncable> : SyncerProtocol {
     }
 
     public func stopRefreshTimer() {
+        Logger.log("Refresh timer for \(self) has been stopped")
         timerDisposeBag = nil
     }
 }

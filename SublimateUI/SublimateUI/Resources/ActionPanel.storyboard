@@ -13,7 +13,7 @@
         <!--Action Panel View Controller-->
         <scene sceneID="o2b-Qq-6qA">
             <objects>
-                <viewController storyboardIdentifier="ActionPanelViewController" id="lVo-GB-Ys5" customClass="ActionPanelViewController" customModule="SublimateClient" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ActionPanelViewController" id="lVo-GB-Ys5" customClass="ActionPanelViewController" customModule="SublimateUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DM5-fV-I75">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -64,8 +64,8 @@
                     <size key="freeformSize" width="375" height="150"/>
                     <connections>
                         <outlet property="cancelButton" destination="E8j-bc-sOI" id="2dS-yf-gBV"/>
-                        <outlet property="deleteButton" destination="xLL-bU-Yck" id="oW7-XG-JyM"/>
-                        <outlet property="randomButton" destination="uCg-qw-Hv9" id="GHy-vS-CDi"/>
+                        <outlet property="deleteButton" destination="xLL-bU-Yck" id="vRy-S1-2rn"/>
+                        <outlet property="randomButton" destination="uCg-qw-Hv9" id="18v-X3-7WJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kf9-mu-fc7" userLabel="First Responder" sceneMemberID="firstResponder"/>
